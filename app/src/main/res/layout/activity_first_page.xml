@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FirstPageActivity">
+
+    <ImageView
+        android:id="@+id/top_src"
+        android:layout_width="304dp"
+        android:layout_height="188dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/first_page_top_src"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/login_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_src">
+
+        <TextView
+            android:id="@+id/join_login_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/join_login"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            android:layout_gravity="center"/>
+        
+        <Button
+            android:id="@+id/btn_start_kakao"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/start_kakao"
+            android:textColor="@color/black"
+            android:background="@drawable/btn_style_round_yellow"/>
+
+        <Button
+            android:id="@+id/btn_start_google"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/start_google"
+            android:textColor="@color/black"
+            android:background="@drawable/btn_style_round_yellow"/>
+
+        <LinearLayout
+            android:id="@+id/auto_login_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:checked="false"/>
+
+            <TextView
+                android:id="@+id/auto_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/auto_login"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
