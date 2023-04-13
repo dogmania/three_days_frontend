@@ -22,6 +22,6 @@ class SplashActivity : AppCompatActivity() {
             // 이동한 다음 사용안함으로 finish 처리
             finish()
 
-        }, 3000) // 시간 3초 이후 실행
+        }, 2000) // 시간 2초 이후 실행
     }
 }
