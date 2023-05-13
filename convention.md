@@ -1,5 +1,3 @@
-# pretty-git-branch-convention
-
 ### 네이밍룰
 
 #### FE
