@@ -88,7 +88,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:padding="8dp"
                 android:background="@drawable/nickname_edittext"
                 android:hint="@string/nickname_hint_edt"
                 android:inputType="text"/>
@@ -134,15 +133,21 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/nickname_hint"/>
 
-            <EditText
-                android:id="@+id/keyword_edittext"
+            <LinearLayout
+                android:id="@+id/keyword_edittext_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="8dp"
-                android:background="@drawable/nickname_edittext"
-                android:hint="@string/keyword_hint_edt"
-                android:inputType="text"/>
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/keyword_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/nickname_edittext"
+                    android:hint="@string/keyword_hint_edt"
+                    android:inputType="text"/>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_add"
