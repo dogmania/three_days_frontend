@@ -18,4 +18,15 @@ class UserManager {
     fun getAllUsers(): List<User> {
         return userList.toList()
     }
+
+    companion object {
+        private var instance: UserManager? = null
+
+        fun getInstance(): UserManager {
+            if (instance == null) {
+                instance = UserManager()
+            }
+            return instance!!
+        }
+    }
 }

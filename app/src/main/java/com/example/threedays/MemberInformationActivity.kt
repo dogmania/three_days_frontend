@@ -1,24 +1,21 @@
 package com.example.threedays
 
-import android.content.res.Resources
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.example.threedays.databinding.ActivityMemberInformationBinding
 
-class memberInformationActivity : AppCompatActivity() {
+val userManager = UserManager.getInstance()
+
+class MemberInformationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemberInformationBinding
     private lateinit var keywordEditTextContainer: LinearLayout
 
-    val Int.dp: Int
-        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
-
-    lateinit var userManager : UserManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,12 +50,16 @@ class memberInformationActivity : AppCompatActivity() {
 
         binding.btnComplete.setOnClickListener {
             insertUser()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
     private fun insertUser() {
         val nickname = binding.nicknameEdittext.text.toString()
         var keywords: MutableList<String> = mutableListOf()
+        var hobits = mutableListOf<Hobit>()
 
         for (i in 0 until keywordEditTextContainer.childCount) { // 추가한 EditText의 개수만큼 반복
             val keywordEditText = keywordEditTextContainer.getChildAt(i) as EditText // edittext가 위치한 곳부터 가져옴
@@ -72,13 +73,12 @@ class memberInformationActivity : AppCompatActivity() {
             Toast.makeText(this, "모든 항목을 채워주세요.",
                 Toast.LENGTH_SHORT).show()
         } else {
-            Thread {
-                val user = User(nickname, keywords)
+            Thread {//백그라운드 스레드에서 유저 정보를 저장하는 작업을 실행
+                val user = User(nickname, keywords, hobits)
                 userManager.addUser(user)
-                runOnUiThread{
+                runOnUiThread{//유저 정보를 저장하는 과정이 끝나면 토스트 메시지로 완료되었음을 사용자에게 전달
                     Toast.makeText(this, "완료되었습니다.",
                         Toast.LENGTH_SHORT).show()
-                    finish()
                 }
             }.start()
         }
