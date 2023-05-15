@@ -18,6 +18,8 @@
     <!--  mainActivity에서 사용할 텍스트  -->
     <string name="habit_formation">새로운 습관을 형성해주세요:)</string>
     <string name="habit_formation_explanation">습관 형성 버튼은 오른쪽 상단에 있어요.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+<!--  AddHabitFirstActivity에서 사용할 텍스트  -->
+    <string name="set_period_text">기간을 설정해 주세요</string>
+    <string name="set_period_text_question">일주일 동안 며칠 달성하고 싶으신가요?</string>
+    <string name="set_period_text_suggestion">부담 없이 선택해주세요! 1일도 괜찮아요 :></string>
 </resources>

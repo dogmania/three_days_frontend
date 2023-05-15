@@ -1,5 +1,6 @@
 package com.example.threedays
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.threedays.databinding.ActivityMainBinding
@@ -14,8 +15,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (user?.hobits.isNullOrEmpty()) {
+        if (user?.habits.isNullOrEmpty()) {
             setFragement()
+        }
+
+        binding.btnAdd.setOnClickListener {
+            val intent = Intent(this, AddHabitFirstActivity::class.java)
+            startActivity(intent)
         }
     }
 

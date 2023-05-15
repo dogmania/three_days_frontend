@@ -20,6 +20,7 @@
             android:id="@+id/welcome_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:textSize="20sp"
             android:text="환영해요!"
             android:textColor="@color/black"

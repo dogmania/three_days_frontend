@@ -13,8 +13,9 @@
         android:theme="@style/Theme.ThreeDays"
         tools:targetApi="31">
         <activity
-            android:name=".FirstTimeUserMainActivity"
-            android:exported="false">
+            android:name=".AddHabitFirstActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Design.Light.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
