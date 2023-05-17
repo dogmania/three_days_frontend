@@ -1,5 +1,6 @@
 package com.example.threedays
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.threedays.databinding.ActivityAddHabitFirstBinding
@@ -18,6 +19,11 @@ class AddHabitFirstActivity : AppCompatActivity() {
 
         binding.btnClose.setOnClickListener {
             finish()
+        }
+
+        binding.btnComplete.setOnClickListener {
+            val intent = Intent(this, AddHabitSecondActivity::class.java)
+            startActivity(intent)
         }
     }
 }
