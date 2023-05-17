@@ -165,7 +165,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/btn_style_round_gray"
+        android:background="@drawable/round_frame_yellow"
         android:text="@string/complete"
         android:textSize="20sp"
         android:textColor="@color/gray"

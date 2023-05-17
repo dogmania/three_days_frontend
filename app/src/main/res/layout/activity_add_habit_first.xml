@@ -110,74 +110,125 @@
             android:orientation="vertical">
             
             <LinearLayout
+                android:id="@+id/btn_day_layout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/btn_day1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Button
+                    android:id="@+id/btn_day_1"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
                     android:layout_weight="1"
-                    android:src="@drawable/basic_day1"
-                    android:background="@android:color/transparent"/>
+                    android:background="@drawable/btn_white_background"
+                    android:text="@string/day1"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
 
-                <ImageButton
-                    android:id="@+id/btn_day2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/basic_day2"
-                    android:background="@android:color/transparent"/>
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"/>
 
-                <ImageButton
-                    android:id="@+id/btn_day3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Button
+                    android:id="@+id/btn_day_2"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
                     android:layout_weight="1"
-                    android:src="@drawable/basic_day3"
-                    android:background="@android:color/transparent"/>
+                    android:background="@drawable/btn_white_background"
+                    android:text="@string/day2"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"/>
+
+                <Button
+                    android:id="@+id/btn_day_3"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_white_background"
+                    android:text="@string/day3"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/btn_day_layout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginTop="30dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/btn_day4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Button
+                    android:id="@+id/btn_day_4"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
                     android:layout_weight="1"
-                    android:src="@drawable/basic_day4"
-                    android:background="@android:color/transparent"/>
+                    android:background="@drawable/btn_white_background"
+                    android:text="@string/day4"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
 
-                <ImageButton
-                    android:id="@+id/btn_day5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/basic_day5"
-                    android:background="@android:color/transparent"/>
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"/>
 
-                <ImageButton
-                    android:id="@+id/btn_day6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Button
+                    android:id="@+id/btn_day_5"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
                     android:layout_weight="1"
-                    android:src="@drawable/basic_day6"
-                    android:background="@android:color/transparent"/>
+                    android:background="@drawable/btn_white_background"
+                    android:text="@string/day5"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
 
-                <ImageButton
-                    android:id="@+id/btn_day7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"/>
+
+                <Button
+                    android:id="@+id/btn_day_6"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
                     android:layout_weight="1"
-                    android:src="@drawable/basic_day7"
-                    android:background="@android:color/transparent"/>
+                    android:background="@drawable/btn_white_background"
+                    android:text="@string/day6"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"/>
+
+                <Button
+                    android:id="@+id/btn_day_7"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_white_background"
+                    android:text="@string/day7"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
 
             </LinearLayout>
 

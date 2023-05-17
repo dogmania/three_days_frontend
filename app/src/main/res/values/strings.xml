@@ -22,6 +22,13 @@
     <string name="set_period_text">기간을 설정해 주세요</string>
     <string name="set_period_text_question">일주일 동안 며칠 달성하고 싶으신가요?</string>
     <string name="set_period_text_suggestion">부담 없이 선택해주세요! 1일도 괜찮아요 :></string>
+    <string name="day1">1일</string>
+    <string name="day2">2일</string>
+    <string name="day3">3일</string>
+    <string name="day4">4일</string>
+    <string name="day5">5일</string>
+    <string name="day6">6일</string>
+    <string name="day7">7일</string>
 <!--  AddHabitSecondActicity에서 사용할 텍스트  -->
     <string name="set_habit">작심삼일 습관을\n설정해주세요</string>
     <string name="set_habit_text_suggestion">지금 당장 실행할 수 있을 만큼 쉬운 목표를\n작성해주세요</string>

@@ -50,9 +50,6 @@ class MemberInformationActivity : AppCompatActivity() {
 
         binding.btnComplete.setOnClickListener {
             insertUser()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
         }
     }
 
@@ -79,6 +76,9 @@ class MemberInformationActivity : AppCompatActivity() {
                 runOnUiThread{//유저 정보를 저장하는 과정이 끝나면 토스트 메시지로 완료되었음을 사용자에게 전달
                     Toast.makeText(this, "완료되었습니다.",
                         Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }.start()
         }
