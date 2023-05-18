@@ -1,7 +1,7 @@
 package com.example.threedays
 
 data class Habit (
-    val habitName : String,
-    val period : Int,
-    val disclosure : Boolean
+    val period : Int? = null,
+    val habitName : String? = null,
+    val disclosure : Boolean? = null
         )
