@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:textSize="20sp"
-            android:text="환영해요!"
+            android:text=""
             android:textColor="@color/black"
             android:textStyle="bold"/>
 

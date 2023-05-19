@@ -37,7 +37,6 @@
         app:layout_constraintTop_toBottomOf="@id/btn_add"
         app:layout_constraintBottom_toTopOf="@id/navigation_layout"/>
 
-
     <LinearLayout
         android:id="@+id/navigation_layout"
         android:layout_width="match_parent"

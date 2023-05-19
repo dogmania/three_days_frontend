@@ -6,7 +6,7 @@
     <string name="start_google">구글로 시작하기</string>
     <string name="auto_login">자동로그인</string>
     <!--  memberInformationActivity에서 사용할 텍스트  -->
-    <string name="welcome">환영해요!</string>
+    <string name="welcome">님 환영해요!</string>
     <string name="introduce_yourself">본인을 소개해주세요.</string>
     <string name="nickname">닉네임</string>
     <string name="nickname_hint">*영문/한글/숫자를 입력할 수 있어요. (1~20자 이내)</string>

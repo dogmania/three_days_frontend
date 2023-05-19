@@ -77,6 +77,7 @@ class MemberInformationActivity : AppCompatActivity() {
                     Toast.makeText(this, "완료되었습니다.",
                         Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("nickname", nickname)
                     startActivity(intent)
                     finish()
                 }
