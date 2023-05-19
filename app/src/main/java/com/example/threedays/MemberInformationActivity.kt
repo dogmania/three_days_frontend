@@ -25,7 +25,7 @@ class MemberInformationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnAdd.setOnClickListener {
-            val currentEditTextCount = keywordEditTextContainer.childCount
+            val currentEdittextCount = keywordEditTextContainer.childCount
             val editText = EditText(this).apply {
                 val marginTop = resources.getDimension(R.dimen.keyword_edittext_margin_top).toInt()
                 layoutParams = LinearLayout.LayoutParams(
@@ -40,11 +40,11 @@ class MemberInformationActivity : AppCompatActivity() {
                 inputType = InputType.TYPE_CLASS_TEXT
             }
 
-            if (currentEditTextCount < 5) {//현재 edittext의 개수가 5개 이하인 경우에만 실행
-                keywordEditTextContainer.addView(editText, currentEditTextCount)
-                if (currentEditTextCount == 4) binding.btnAdd.visibility = View.GONE
+            if (currentEdittextCount < 5) {//현재 edit text 개수가 5개 이하인 경우에만 실행
+                keywordEditTextContainer.addView(editText, currentEdittextCount)
+                if (currentEdittextCount == 4) binding.btnAdd.visibility = View.GONE
             } else {
-                binding.btnAdd.visibility = View.GONE//edittext의 개수가 5개가 되면 더이상 추가하기 버튼이 보이지 않음
+                binding.btnAdd.visibility = View.GONE //edit text 개수가 5개가 되면 더이상 추가하기 버튼이 보이지 않음
             }
         }
 
@@ -55,13 +55,13 @@ class MemberInformationActivity : AppCompatActivity() {
 
     private fun insertUser() {
         val nickname = binding.nicknameEdittext.text.toString()
-        var keywords: MutableList<String> = mutableListOf()
-        var habits = mutableListOf<Habit>()
+        val keywords: MutableList<String> = mutableListOf()
+        val habits = mutableListOf<Habit>()
 
-        for (i in 0 until keywordEditTextContainer.childCount) { // 추가한 EditText의 개수만큼 반복
-            val keywordEditText = keywordEditTextContainer.getChildAt(i) as EditText // edittext가 위치한 곳부터 가져옴
-            val keyword = keywordEditText.text.toString() // EditText에서 입력된 문자열을 가져옴
-            if (keyword.isNotBlank()) {//비어있지 않은 경우에만 keywords에 추가
+        for (i in 0 until keywordEditTextContainer.childCount) { // 추가한 EditText 개수만큼 반복
+            val keywordEditText = keywordEditTextContainer.getChildAt(i) as EditText // EditText 위치한 곳부터 가져옴
+            val keyword = keywordEditText.text.toString() // EditText 에서 입력된 문자열을 가져옴
+            if (keyword.isNotBlank()) {//비어있지 않은 경우에만 keywords 에 추가
                 keywords.add(keyword)
             }
         }

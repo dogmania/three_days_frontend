@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnAdd.setOnClickListener {
             val intent = Intent(this, AddHabitFirstActivity::class.java)
+            intent.putExtra("nickname", nickname)
             startActivity(intent)
         }
     }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_src"
-    tools:context=".AddHabitSecondActivity">
+    tools:context=".AddHabitThirdActivity">
 
     <LinearLayout
         android:id="@+id/btn_layout"
@@ -41,75 +41,90 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/second_step_graph"
+        android:id="@+id/third_step_graph"
         android:layout_width="300dp"
         android:layout_height="23.15dp"
         android:layout_marginTop="60dp"
-        android:src="@drawable/second_step_graph"
+        android:src="@drawable/third_step_graph"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_layout"/>
 
     <LinearLayout
-        android:id="@+id/set_habit_layout"
+        android:id="@+id/disclosure_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginHorizontal="30dp"
         android:orientation="vertical"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/second_step_graph">
+        app:layout_constraintTop_toBottomOf="@id/third_step_graph">
 
         <TextView
-            android:id="@+id/set_habit"
+            android:id="@+id/disclosure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/set_habit"
+            android:paddingVertical="20dp"
+            android:text="@string/disclosure"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="23sp"/>
 
         <TextView
-            android:id="@+id/set_habit_text_suggestion"
+            android:id="@+id/disclosure_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/set_habit_text_suggestion"
-            android:textColor="@color/black"/>
-        
-        <LinearLayout
-            android:id="@+id/set_habit_edittext_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:orientation="horizontal">
-            
-            <EditText
-                android:id="@+id/set_habit_edittext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_weight="0.7"
-                android:hint="8am 이전 기상"
-                android:gravity="center"
-                android:background="@drawable/round_frame_white"
-                android:singleLine="true"
-                android:maxWidth="90dp"
-                android:maxLength="30"/>
+            android:text="@string/disclosure_hint"
+            android:textColor="@color/black"
+            android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/set_habit_sub_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="5dp"
-                android:text="@string/set_habit_sub_text"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
-            
-        </LinearLayout>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/btn_disclosure_layout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/disclosure_layout"
+        app:layout_constraintEnd_toEndOf="@id/disclosure_layout"
+        app:layout_constraintTop_toBottomOf="@id/disclosure_layout">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="3"/>
+
+        <ToggleButton
+            android:id="@+id/btn_yes"
+            android:layout_width="69dp"
+            android:layout_height="54dp"
+            android:layout_weight="0.3"
+            android:background="@drawable/btn_white_background"
+            android:textOn="@string/yes"
+            android:textOff="@string/yes"
+            android:textSize="23sp"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="3"/>
+
+        <ToggleButton
+            android:id="@+id/btn_no"
+            android:layout_width="69dp"
+            android:layout_height="54dp"
+            android:layout_weight="0.3"
+            android:background="@drawable/btn_white_background"
+            android:textOn="@string/no"
+            android:textOff="@string/no"
+            android:textSize="23sp"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="3"/>
 
     </LinearLayout>
 

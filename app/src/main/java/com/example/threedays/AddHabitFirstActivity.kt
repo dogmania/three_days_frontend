@@ -1,11 +1,8 @@
 package com.example.threedays
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import android.widget.ToggleButton
 import com.example.threedays.databinding.ActivityAddHabitFirstBinding
@@ -14,13 +11,15 @@ open class AddHabitFirstActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddHabitFirstBinding
 
     private lateinit var buttons : Array<ToggleButton>
-    var habit  = Habit()
-    var movable = false
+    private var period : Int?  = null
+    private var movable = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddHabitFirstBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val nickname = intent.getStringExtra("nickname")!!
 
         buttons = arrayOf(
             binding.btnDay1,
@@ -55,6 +54,8 @@ open class AddHabitFirstActivity : AppCompatActivity() {
 
             if (movable) {
                 val intent = Intent(this, AddHabitSecondActivity::class.java)
+                intent.putExtra("nickname", nickname)
+                intent.putExtra("period", period)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "기간을 선택해주세요.",
@@ -73,13 +74,13 @@ open class AddHabitFirstActivity : AppCompatActivity() {
         buttons[index].setBackgroundResource(R.drawable.btn_style_round_green)
 
         when (index) {
-            0 -> habit.copy(1)
-            1 -> habit.copy(2)
-            2 -> habit.copy(3)
-            3 -> habit.copy(4)
-            4 -> habit.copy(5)
-            5 -> habit.copy(6)
-            6 -> habit.copy(7)
+            0 -> period = 1
+            1 -> period = 2
+            2 -> period = 3
+            3 -> period = 4
+            4 -> period = 5
+            5 -> period = 6
+            6 -> period = 7
         }
     }
 }

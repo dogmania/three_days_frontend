@@ -29,8 +29,17 @@
     <string name="day5">5일</string>
     <string name="day6">6일</string>
     <string name="day7">7일</string>
-<!--  AddHabitSecondActicity에서 사용할 텍스트  -->
+    <!--  AddHabitSecondActivity에서 사용할 텍스트  -->
     <string name="set_habit">작심삼일 습관을\n설정해주세요</string>
     <string name="set_habit_text_suggestion">지금 당장 실행할 수 있을 만큼 쉬운 목표를\n작성해주세요</string>
     <string name="set_habit_sub_text">을/를 하겠다</string>
+    <!--  AddHabitThirdActivity에서 사용할 텍스트  -->
+    <string name="disclosure">공개 여부를 선택해주세요</string>
+    <string name="disclosure_hint">피드에 업로드를 하면 인증이 완료됩니다\n피드에 업로드 된 내용을 다른 사람들과 공유하시겠습니까?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+<!--  HabitFormationCompleteActivity에서 사용할 텍스트  -->
+    <string name="habit_formation_complete1">습관 형성이</string>
+    <string name="habit_formation_complete2">완료되었습니다</string>
+    <string name="check">확인</string>
 </resources>
