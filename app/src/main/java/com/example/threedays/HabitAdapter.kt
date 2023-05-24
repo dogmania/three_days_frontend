@@ -1,6 +1,7 @@
 package com.example.threedays
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ class HabitAdapter(private val habits: List<Habit>, private val context: Context
         val achievementRate = binding.achievementRate
         val combo = binding.combo
         val numOfAchievement = binding.numberOfAchievements
+        val btnCertification = binding.btnCertification
 
         val root = binding.root
     }
@@ -36,7 +38,11 @@ class HabitAdapter(private val habits: List<Habit>, private val context: Context
         holder.combo.text = habitData.combo.toString() + "combo"
         holder.numOfAchievement.text = habitData.numOfAchievement.toString() + "/" + habitData.period.toString()
 
-
+        holder.btnCertification.setOnClickListener {
+            val intent = Intent(context, CertificationActivity::class.java)
+            intent.putExtra("habitName", habitData.habitName)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
