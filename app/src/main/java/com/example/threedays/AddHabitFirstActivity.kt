@@ -38,10 +38,14 @@ open class AddHabitFirstActivity : AppCompatActivity() {
         }
 
         binding.btnBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             finish()
         }
 
         binding.btnClose.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             finish()
         }
 

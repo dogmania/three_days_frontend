@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 
     id "kotlin-kapt"//room 라이브러리 임포트
+
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -55,4 +57,8 @@ dependencies {
     def room_version = "2.5.0"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"//room 라이브러리 임포트
+
+    implementation platform('com.google.firebase:firebase-bom:32.0.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging'
 }

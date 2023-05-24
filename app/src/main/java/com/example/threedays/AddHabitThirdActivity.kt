@@ -59,16 +59,12 @@ class AddHabitThirdActivity : AppCompatActivity() {
         }
 
         if (movable) {
-            val habits = mutableListOf<Habit>()
             val habit = Habit(period, habitName, disclosure)
-            habits.add(habit)
             val user = userManager.getUser(nickname)!!
-            val updatedUser = user.copy(habits = habits)
-
-            userManager.removeUser(user)
-            userManager.addUser(updatedUser)
+            user.habits.add(habit)
 
             val intent = Intent(this, HabitFormationCompleteActivity::class.java)
+            intent.putExtra("nickname", nickname)
             startActivity(intent)
 
         } else {

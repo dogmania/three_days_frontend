@@ -38,8 +38,20 @@
     <string name="disclosure_hint">피드에 업로드를 하면 인증이 완료됩니다\n피드에 업로드 된 내용을 다른 사람들과 공유하시겠습니까?</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
-<!--  HabitFormationCompleteActivity에서 사용할 텍스트  -->
+    <!--  HabitFormationCompleteActivity에서 사용할 텍스트  -->
     <string name="habit_formation_complete1">습관 형성이</string>
     <string name="habit_formation_complete2">완료되었습니다</string>
     <string name="check">확인</string>
+    <!--  item_habit에서 사용할 텍스트  -->
+    <string name="habit_title">책 30장 읽기</string>
+    <string name="habit_period">🗓️ 목표: 주 3회 달성</string>
+    <string name="certification">인증하기</string>
+    <string name="percent">%</string>
+    <string name="achievement_rate">📈달성률</string>
+    <string name="combo">combo</string>
+    <string name="combo_text">👍 콤보</string>
+    <string name="number_of_achievements">0/3</string>
+    <string name="number_of_achievements_text">달성 횟수</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
