@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 첫 번째 레이어: 투명 배경 -->
+    <item android:drawable="@android:color/transparent" />
+
+    <!-- 두 번째 레이어: Drawable 파일 -->
+    <item android:drawable="@drawable/btn_style_round_yellow" />
+</layer-list>

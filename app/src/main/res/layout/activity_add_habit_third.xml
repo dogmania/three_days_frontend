@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_src"
+    tools:context=".AddHabitThirdActivity">
+
+    <LinearLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_left"
+            android:background="@android:color/transparent"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close_icon"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/third_step_graph"
+        android:layout_width="300dp"
+        android:layout_height="23.15dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/third_step_graph"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_layout"/>
+
+    <LinearLayout
+        android:id="@+id/disclosure_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/third_step_graph">
+
+        <TextView
+            android:id="@+id/disclosure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="20dp"
+            android:text="@string/disclosure"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="23sp"/>
+
+        <TextView
+            android:id="@+id/disclosure_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disclosure_hint"
+            android:textColor="@color/black"
+            android:textSize="13sp"/>
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/btn_disclosure_layout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/disclosure_layout"
+        app:layout_constraintEnd_toEndOf="@id/disclosure_layout"
+        app:layout_constraintTop_toBottomOf="@id/disclosure_layout">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="3"/>
+
+        <ToggleButton
+            android:id="@+id/btn_yes"
+            android:layout_width="69dp"
+            android:layout_height="54dp"
+            android:layout_weight="0.3"
+            android:background="@drawable/btn_white_background"
+            android:textOn="@string/yes"
+            android:textOff="@string/yes"
+            android:textSize="23sp"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="3"/>
+
+        <ToggleButton
+            android:id="@+id/btn_no"
+            android:layout_width="69dp"
+            android:layout_height="54dp"
+            android:layout_weight="0.3"
+            android:background="@drawable/btn_white_background"
+            android:textOn="@string/no"
+            android:textOff="@string/no"
+            android:textSize="23sp"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="3"/>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/arrow_right"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
