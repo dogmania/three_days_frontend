@@ -52,7 +52,7 @@
     <string name="combo_text">👍 콤보</string>
     <string name="number_of_achievements">0/3</string>
     <string name="number_of_achievements_text">달성 횟수</string>
-<!--  CertificationActivity에서 사용할 텍스트  -->
+    <!--  CertificationActivity에서 사용할 텍스트  -->
     <string name="month">월</string>
     <string name="day">일</string>
     <string name="my_goal">&lt;나의 목표&gt;</string>
