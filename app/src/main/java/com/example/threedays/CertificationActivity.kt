@@ -35,6 +35,10 @@ class CertificationActivity : AppCompatActivity() {
             openGallery()
         }
 
+        binding.btnDifficulty.setOnClickListener {
+            addReviewStars()
+        }
+
         binding.planArrangementFrame.visibility = View.GONE
     }
 
@@ -90,5 +94,9 @@ class CertificationActivity : AppCompatActivity() {
                 binding.photoLayout.visibility = LinearLayout.VISIBLE
             }
         }
+    }
+
+    private fun addReviewStars() {
+        
     }
 }
