@@ -97,6 +97,6 @@ class CertificationActivity : AppCompatActivity() {
     }
 
     private fun addReviewStars() {
-        
+        binding.reviewLayout.removeAllViews()
     }
 }
