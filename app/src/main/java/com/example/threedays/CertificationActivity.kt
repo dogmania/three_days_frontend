@@ -98,5 +98,30 @@ class CertificationActivity : AppCompatActivity() {
 
     private fun addReviewStars() {
         binding.reviewLayout.removeAllViews()
+
+        for (i in 1..5) {
+            val starImageView = ImageView(this)
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            layoutParams.marginEnd = 16.dpToPx()
+            //LinearLayout.LayoutParams는 LinearLayout의 내부에서 사용되는 레이아웃 속성을 정의하는 클래스이다.
+            //이 클래스의 생성자는 두개의 매개변수를 요구하고 자식 레이아웃의 width, height 값을 매개변수로 사용한다.
+
+            starImageView.layoutParams = layoutParams
+            starImageView.setImageResource(R.drawable.ic_star_empty)
+            starImageView.tag = "empty"
+            starImageView.isClickable = true
+            starImageView.setOnClickListener { view ->
+                handleStarClick(view)
+            }
+
+            binding.reviewLayout.addView(starImageView)
+        }
+    }
+
+    private fun handleStarClick(starView: View) {
+
     }
 }
