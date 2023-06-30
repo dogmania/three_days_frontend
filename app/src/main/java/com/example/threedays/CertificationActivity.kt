@@ -122,6 +122,6 @@ class CertificationActivity : AppCompatActivity() {
     }
 
     private fun handleStarClick(starView: View) {
-
+        val clickedStarIndex = binding.reviewLayout.indexOfChild(starView)
     }
 }
