@@ -60,4 +60,6 @@
     <string name="plan_arrangement">계획 회고 및 정리하기</string>
     <string name="difficulty">난이도</string>
     <string name="complete_certification">인증 완료하기</string>
+    <!--  HabitCertificationCompleteActivity에서 사용할 텍스트  -->
+    <string name="habit_certification_complete">습관 인증이</string>
 </resources>

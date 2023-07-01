@@ -40,6 +40,11 @@ class CertificationActivity : AppCompatActivity() {
         }
 
         binding.planArrangementFrame.visibility = View.GONE
+
+        binding.btnComplete.setOnClickListener {
+            val intent = Intent(this, HabitCertificationCompleteActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun addEditText() {
@@ -112,6 +117,7 @@ class CertificationActivity : AppCompatActivity() {
             starImageView.layoutParams = layoutParams
             starImageView.setImageResource(R.drawable.ic_star_empty)
             starImageView.tag = "empty"
+            //각각의 이미지뷰에 대해서 태그를 이용하여 채워진 별인지 비어있는 별인지 구분
             starImageView.isClickable = true
             starImageView.setOnClickListener { view ->
                 handleStarClick(view)
@@ -123,5 +129,27 @@ class CertificationActivity : AppCompatActivity() {
 
     private fun handleStarClick(starView: View) {
         val clickedStarIndex = binding.reviewLayout.indexOfChild(starView)
+        val filledStarDrawable = R.drawable.ic_star_filled
+        val emptyStarDrawable = R.drawable.ic_star_empty
+
+        for (i in 0 until clickedStarIndex) {
+            val starImageView = binding.reviewLayout.getChildAt(i) as ImageView
+            starImageView.setImageResource(filledStarDrawable)
+            starImageView.tag = "filled"
+        }
+
+        if (starView.tag == "filled") {
+            (starView as ImageView).setImageResource(R.drawable.ic_star_empty)
+            starView.tag = "empty"
+        } else {
+            (starView as ImageView).setImageResource(R.drawable.ic_star_filled)
+            starView.tag = "filled"
+        }
+
+        for (i in clickedStarIndex + 1 until binding.reviewLayout.childCount) {
+            val starImageView = binding.reviewLayout.getChildAt(i) as ImageView
+            starImageView.setImageResource(emptyStarDrawable)
+            starImageView.tag = "empty"
+        }//클릭된 별 이후에 있는 별들을 비우는 코드
     }
 }

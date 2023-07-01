@@ -73,7 +73,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.8"
+            android:layout_weight="1.5"
             android:orientation="vertical">
 
             <TextView
@@ -85,7 +85,7 @@
                 android:layout_gravity="center"
                 android:text="@string/percent"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="30sp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -107,7 +107,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:orientation="vertical">
 
             <TextView
@@ -118,7 +118,7 @@
                 android:text="@string/combo"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:gravity="center"
                 android:layout_gravity="center"/>
 
@@ -142,7 +142,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.8"
+            android:layout_weight="1.5"
             android:orientation="vertical">
 
             <TextView
