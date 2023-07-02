@@ -15,6 +15,12 @@ class HabitFragment : Fragment() {
     private lateinit var binding: FragmentHabitBinding
     private lateinit var habitAdapter: HabitAdapter
 
+    interface onEditButtonClickListener {
+        fun onEditButtonCLick()
+    }
+
+    private var onEditButtonClickListener: onEditButtonClickListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,5 +42,12 @@ class HabitFragment : Fragment() {
 
         binding.habitRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        binding.btnModify.setOnClickListener {
+            onEditButtonClickListener?.onEditButtonClick()
+        }
+    }
+
+    fun setOnEditButtonClickListener(listener: OnEditButtonClickListener) {
+        onEditButtonClickListener = listener
     }
 }
