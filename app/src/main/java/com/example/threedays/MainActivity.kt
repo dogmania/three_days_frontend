@@ -9,6 +9,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var habits : MutableList<Habit>
 
+    private var isEditMode: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
     }
 
     override fun onResume() {
