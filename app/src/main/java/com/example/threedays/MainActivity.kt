@@ -3,6 +3,7 @@ package com.example.threedays
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.threedays.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val transaction = supportFragmentManager.beginTransaction()
-            .add(R.id.main_frame, fragment)
+            .add(R.id.sub_frame, fragment)
         transaction.commit()
     }
 
@@ -69,7 +70,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         val transaction = supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frame, fragment)
+            .replace(R.id.sub_frame, fragment)
         transaction.commit()
+    }
+
+    fun showModifyFragment(nickname: String) {
+        binding.subFrame.visibility = View.GONE
+        binding.navigationLayout.visibility = View.GONE
+
+        val habitModifyFragment = HabitModifyFragment().apply {
+            arguments = Bundle().apply {
+                putString("nickname", nickname)
+            }
+        }
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frame2, habitModifyFragment)
+            .commit()
     }
 }
