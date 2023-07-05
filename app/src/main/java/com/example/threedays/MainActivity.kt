@@ -5,6 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.threedays.databinding.ActivityMainBinding
+import android.util.Log
+import androidx.fragment.app.Fragment
+import com.example.threedays.databinding.ActivityFirstPageBinding
+import com.example.threedays.view.home.HomeFragment
+import com.example.threedays.view.sns.SnsFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding

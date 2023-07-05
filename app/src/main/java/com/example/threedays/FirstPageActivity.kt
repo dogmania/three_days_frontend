@@ -15,8 +15,8 @@ class FirstPageActivity : AppCompatActivity() {
         binding = ActivityFirstPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnStartKakao.setOnClickListener {
-            val intent = Intent(this, MemberInformationActivity::class.java)
+        binding.btnStartKakao.setOnClickListener{
+            val intent= Intent( this,KakaoLoginActivity::class.java)
             startActivity(intent)
         }
 
