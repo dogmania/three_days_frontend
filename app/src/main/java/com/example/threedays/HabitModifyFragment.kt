@@ -12,7 +12,7 @@ import com.example.threedays.databinding.FragmentHabitModifyBinding
 class HabitModifyFragment : Fragment() {
 
     private lateinit var binding: FragmentHabitModifyBinding
-    private lateinit var habitAdapter: HabitAdapter
+    private lateinit var habitModificationAdapter: HabitModificationAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,8 +31,8 @@ class HabitModifyFragment : Fragment() {
         val user = userManager.getUser(nickname)!!
         val habits = user.habits
 
-        habitAdapter = HabitAdapter(habits, requireContext())
-        binding.habitRecyclerView.adapter = habitAdapter
+        habitModificationAdapter = HabitModificationAdapter(habits, requireContext())
+        binding.habitRecyclerView.adapter = habitModificationAdapter
 
         binding.habitRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
