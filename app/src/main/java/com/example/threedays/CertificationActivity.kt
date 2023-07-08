@@ -40,6 +40,7 @@ class CertificationActivity : AppCompatActivity() {
         }
 
         binding.planArrangementFrame.visibility = View.GONE
+        binding.reviewLayout.visibility = View.GONE
 
         binding.btnComplete.setOnClickListener {
             val intent = Intent(this, HabitCertificationCompleteActivity::class.java)
@@ -102,6 +103,7 @@ class CertificationActivity : AppCompatActivity() {
     }
 
     private fun addReviewStars() {
+        binding.reviewLayout.visibility = View.VISIBLE
         binding.reviewLayout.removeAllViews()
 
         for (i in 1..5) {

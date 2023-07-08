@@ -38,6 +38,13 @@ class HabitAdapter(private val habits: List<Habit>, private val context: Context
         holder.combo.text = habitData.combo.toString() + "combo"
         holder.numOfAchievement.text = habitData.numOfAchievement.toString() + "/" + habitData.period.toString()
 
+        holder.btnCertification.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, CertificationActivity::class.java)
+            intent.putExtra("habitName", habitData.habitName) // 선택된 습관의 이름 전달
+            context.startActivity(intent)
+        }
+
         if (habitData.disclosure == true) {
 
         }
