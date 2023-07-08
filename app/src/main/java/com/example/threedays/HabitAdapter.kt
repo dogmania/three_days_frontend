@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.threedays.databinding.ItemHabitBinding
 
-class HabitAdapter(private val habits: List<Habit>, private val context: Context)
+class HabitAdapter(private val habits: List<Habit>, private val context: Context, private val nickname: String)
     : RecyclerView.Adapter<HabitAdapter.MyViewHolder> () {
 
     inner class MyViewHolder(binding : ItemHabitBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -42,6 +42,7 @@ class HabitAdapter(private val habits: List<Habit>, private val context: Context
             val context = holder.itemView.context
             val intent = Intent(context, CertificationActivity::class.java)
             intent.putExtra("habitName", habitData.habitName) // 선택된 습관의 이름 전달
+            intent.putExtra("nickname", nickname)
             context.startActivity(intent)
         }
 

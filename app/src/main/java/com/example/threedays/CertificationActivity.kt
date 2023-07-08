@@ -25,6 +25,7 @@ class CertificationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val habitName = intent.getStringExtra("habitName")!!
+        val nickname = intent.getStringExtra("nickname")!!
         binding.habitName.text = habitName
 
         binding.btnPlanArrangement.setOnClickListener {
@@ -44,6 +45,7 @@ class CertificationActivity : AppCompatActivity() {
 
         binding.btnComplete.setOnClickListener {
             val intent = Intent(this, HabitCertificationCompleteActivity::class.java)
+            intent.putExtra("nickname", nickname)
             startActivity(intent)
         }
     }

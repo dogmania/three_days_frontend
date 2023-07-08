@@ -31,7 +31,7 @@ class HabitFragment : Fragment() {
         val user = userManager.getUser(nickname)!!
         val habits = user.habits
 
-        habitAdapter = HabitAdapter(habits, requireContext())
+        habitAdapter = HabitAdapter(habits, requireContext(), nickname)
         binding.habitRecyclerView.adapter = habitAdapter
 
         binding.habitRecyclerView.layoutManager = LinearLayoutManager(requireContext())
