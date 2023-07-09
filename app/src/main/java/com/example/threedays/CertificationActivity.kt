@@ -40,6 +40,12 @@ class CertificationActivity : AppCompatActivity() {
             addReviewStars()
         }
 
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("nickname", nickname)
+            startActivity(intent)
+        }
+
         binding.planArrangementFrame.visibility = View.GONE
         binding.reviewLayout.visibility = View.GONE
 
