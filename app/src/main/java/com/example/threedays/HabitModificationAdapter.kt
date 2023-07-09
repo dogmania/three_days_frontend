@@ -1,14 +1,12 @@
 package com.example.threedays
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.threedays.databinding.ItemHabitBinding
 import com.example.threedays.databinding.ItemHabitModificationBinding
 
-class HabitModificationAdapter(private val habits: List<Habit>, private val context: Context)
+class HabitModificationAdapter(private val habits: MutableList<Habit>, private val context: Context)
     : RecyclerView.Adapter<HabitModificationAdapter.MyViewHolder> () {
 
 
@@ -19,6 +17,7 @@ class HabitModificationAdapter(private val habits: List<Habit>, private val cont
         val combo = binding.combo
         val numOfAchievement = binding.numberOfAchievements
         val btnPublic = binding.btnPublic
+        val itemLayout = binding.itemLayout
 
         val root = binding.root
     }
@@ -38,8 +37,26 @@ class HabitModificationAdapter(private val habits: List<Habit>, private val cont
         holder.combo.text = habitData.combo.toString() + "combo"
         holder.numOfAchievement.text = habitData.numOfAchievement.toString() + "/" + habitData.period.toString()
 
-        holder.btnPublic.setOnClickListener {
+        holder.btnPublic.isChecked = habitData.disclosure!!
 
+        if (habitData.disclosure == false) {
+            holder.itemLayout.setBackgroundResource(R.drawable.round_frame_yellow)
+            holder.btnPublic.setBackgroundResource(R.drawable.ic_btn_private)
+        } else {
+            holder.itemLayout.setBackgroundResource(R.drawable.round_frame_white)
+            holder.btnPublic.setBackgroundResource(R.drawable.ic_btn_public)
+        }
+
+        holder.btnPublic.setOnCheckedChangeListener { buttonView, isChecked ->
+            habits[position] = habitData.copy(disclosure = isChecked)
+
+            if (isChecked) {
+                holder.itemLayout.setBackgroundResource(R.drawable.round_frame_white)
+                holder.btnPublic.setBackgroundResource(R.drawable.ic_btn_public)
+            } else {
+                holder.itemLayout.setBackgroundResource(R.drawable.round_frame_yellow)
+                holder.btnPublic.setBackgroundResource(R.drawable.ic_btn_private)
+            }
         }
     }
 

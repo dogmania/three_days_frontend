@@ -45,10 +45,6 @@ class HabitAdapter(private val habits: List<Habit>, private val context: Context
             intent.putExtra("nickname", nickname)
             context.startActivity(intent)
         }
-
-        if (habitData.disclosure == true) {
-
-        }
     }
 
     override fun getItemCount(): Int {
