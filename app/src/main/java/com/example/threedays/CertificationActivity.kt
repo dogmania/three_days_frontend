@@ -11,9 +11,11 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.threedays.databinding.ActivityCertificationBinding
+import java.util.Calendar
 
 class CertificationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCertificationBinding
+    private val calendar = Calendar.getInstance()
 
     companion object {
         private const val GALLERY_REQUEST_CODE = 123 //다른 요청들과 구분하기 위해 갤러리 오픈에 대해 요청 코드값 부여
@@ -27,6 +29,9 @@ class CertificationActivity : AppCompatActivity() {
         val habitName = intent.getStringExtra("habitName")!!
         val nickname = intent.getStringExtra("nickname")!!
         binding.habitName.text = habitName
+
+        binding.currentMonth.text = calendar.get(Calendar.MONTH + 1).toString() + resources.getString(R.string.month)
+        binding.currentDay.text = calendar.get(Calendar.DATE).toString() + resources.getString(R.string.day)
 
         binding.btnPlanArrangement.setOnClickListener {
             addEditText()

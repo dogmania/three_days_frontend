@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.threedays.databinding.ActivityMainBinding
 import com.example.threedays.databinding.FragmentHabitBinding
 import com.example.threedays.databinding.FragmentHabitModifyBinding
 

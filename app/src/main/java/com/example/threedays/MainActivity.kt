@@ -15,8 +15,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var habits : MutableList<Habit>
 
-    private var isEditMode: Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -62,9 +60,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val transaction = supportFragmentManager.beginTransaction()
-            .add(R.id.sub_frame, fragment)
-        transaction.commit()
+        replaceFragment(fragment)
     }
 
     private fun setFragment(nickname: String) {
@@ -74,13 +70,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val transaction = supportFragmentManager.beginTransaction()
-            .replace(R.id.sub_frame, fragment)
-        transaction.commit()
+        replaceFragment(fragment)
     }
 
     fun showModifyFragment(nickname: String) {
-        binding.subFrame.visibility = View.GONE
         binding.navigationLayout.visibility = View.GONE
 
         val habitModifyFragment = HabitModifyFragment().apply {
@@ -88,8 +81,25 @@ class MainActivity : AppCompatActivity() {
                 putString("nickname", nickname)
             }
         }
+        replaceFragment(habitModifyFragment)
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frame2, habitModifyFragment)
+            .replace(R.id.sub_frame, fragment)
+            .addToBackStack(null) // 이전 프래그먼트를 백스택에 추가
             .commit()
+    }
+
+    override fun onBackPressed() {
+        binding.navigationLayout.visibility = View.VISIBLE
+
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            // 스택에 프래그먼트가 남아있을 경우, 이전 프래그먼트로 돌아갑니다.
+            supportFragmentManager.popBackStack()
+        } else {
+            // 스택에 프래그먼트가 없는 경우, 기본 뒤로가기 동작을 수행합니다.
+            super.onBackPressed()
+        }
     }
 }
