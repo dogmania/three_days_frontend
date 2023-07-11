@@ -3,12 +3,14 @@ package com.example.threedays
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract.Profile
 import android.view.View
 import com.example.threedays.databinding.ActivityMainBinding
 import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.threedays.databinding.ActivityFirstPageBinding
 import com.example.threedays.view.home.HomeFragment
+import com.example.threedays.view.sns.ProfileFragment
 import com.example.threedays.view.sns.SnsFragment
 
 class MainActivity : AppCompatActivity() {
@@ -89,9 +91,17 @@ class MainActivity : AppCompatActivity() {
     private fun setProfileFragment(nickname: String) {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.sub_frame)
 
-//        if (currentFragment is ProfileFragment) {
-//            return
-//        }
+        if (currentFragment is ProfileFragment) {
+            return
+        }
+
+        val fragment = ProfileFragment().apply {
+            arguments = Bundle().apply {
+                putString("nickname", nickname)
+            }
+        }
+
+        replaceFragment(fragment)
     }
 
     fun showModifyFragment(nickname: String) {
@@ -106,6 +116,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
+        if (fragment is HabitFragment) {
+            binding.title.visibility = View.VISIBLE
+            binding.btnAdd.visibility = View.VISIBLE
+        } else if (fragment is ProfileFragment) {
+            binding.title.visibility = View.GONE
+            binding.btnAdd.visibility = View.GONE
+        }
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.sub_frame, fragment)
             .addToBackStack(null) // 이전 프래그먼트를 백스택에 추가

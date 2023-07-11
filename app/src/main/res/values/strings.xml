@@ -66,4 +66,9 @@
     <string name="modify">수정</string>
     <string name="delete">삭제</string>
     <string name="stop">그만두기</string>
+<!--  ProfileFragment에서 사용할 텍스트  -->
+    <string name="default_num">0</string>
+    <string name="achieving">달성중</string>
+    <string name="achievement_rate2">달성률</string>
+    <string name="followers">팔로워</string>
 </resources>
