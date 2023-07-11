@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         if (habits.isNullOrEmpty()) {
             setEmptyFragment(nickname)//유저의 습관 목록이 비어있다면 그에 맞는 프래그먼트 설정
         } else {
-            setFragment(nickname)
+            setHabitFragment(nickname)
         }
 
         binding.btnAdd.setOnClickListener {
@@ -37,6 +37,13 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.btnHome.setOnClickListener {
+            setHabitFragment(nickname)
+        }
+
+        binding.btnProfile.setOnClickListener {
+            setProfileFragment(nickname)
+        }
     }
 
     override fun onResume() {
@@ -49,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         if (habits.isNullOrEmpty()) {
             setEmptyFragment(nickname)//유저의 습관 목록이 비어있다면 그에 맞는 프래그먼트 설정
         } else {
-            setFragment(nickname)
+            setHabitFragment(nickname)
         }
     }
 
@@ -63,7 +70,13 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(fragment)
     }
 
-    private fun setFragment(nickname: String) {
+    private fun setHabitFragment(nickname: String) {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.sub_frame)
+
+        if (currentFragment is HabitFragment) {
+            return
+        }
+
         val fragment = HabitFragment().apply {
             arguments = Bundle().apply {
                 putString("nickname", nickname)
@@ -71,6 +84,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         replaceFragment(fragment)
+    }
+
+    private fun setProfileFragment(nickname: String) {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.sub_frame)
+
+//        if (currentFragment is ProfileFragment) {
+//            return
+//        }
     }
 
     fun showModifyFragment(nickname: String) {
