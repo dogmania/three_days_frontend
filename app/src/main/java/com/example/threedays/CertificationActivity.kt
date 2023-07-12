@@ -3,19 +3,26 @@ package com.example.threedays
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
+import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.*
 import com.example.threedays.databinding.ActivityCertificationBinding
 import java.util.Calendar
 
 class CertificationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCertificationBinding
     private val calendar = Calendar.getInstance()
+    private var selectedImages = mutableListOf<Uri>()
+    private var habitReview: String? = null
+    private var grade: Int = 0
+    private lateinit var name: String
+    private lateinit var habit: String
 
     companion object {
         private const val GALLERY_REQUEST_CODE = 123 //다른 요청들과 구분하기 위해 갤러리 오픈에 대해 요청 코드값 부여
@@ -28,6 +35,8 @@ class CertificationActivity : AppCompatActivity() {
 
         val habitName = intent.getStringExtra("habitName")!!
         val nickname = intent.getStringExtra("nickname")!!
+        name = nickname
+        habit = habitName
         binding.habitName.text = habitName
 
         binding.currentMonth.text = calendar.get(Calendar.MONTH + 1).toString() + resources.getString(R.string.month)
@@ -55,9 +64,26 @@ class CertificationActivity : AppCompatActivity() {
         binding.reviewLayout.visibility = View.GONE
 
         binding.btnComplete.setOnClickListener {
+            completeCertification(selectedImages, habitReview, grade)
             val intent = Intent(this, HabitCertificationCompleteActivity::class.java)
             intent.putExtra("nickname", nickname)
             startActivity(intent)
+        }
+    }
+
+    private fun completeCertification(selectedImages: MutableList<Uri>, habitReview: String?, grade: Int) {
+        Toast.makeText(applicationContext, "Selected Images: $selectedImages", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Habit Review: $habitReview", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Grade: $grade", Toast.LENGTH_SHORT).show()
+
+        val user = userManager.getUser(name)!!
+        val habit = user.habits.find {it.habitName == habit}
+        habit?.let {
+            val certification = HabitCertification(
+                image = selectedImages,
+                habitReview = habitReview,
+                grade = grade
+                )
         }
     }
 
@@ -77,6 +103,21 @@ class CertificationActivity : AppCompatActivity() {
         }
 
         binding.planArrangementFrame.addView(editText, layoutParams)
+
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // 이전 텍스트 변경 전에 호출될 코드
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // 텍스트가 변경될 때 호출될 코드
+                habitReview = s.toString()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // 텍스트 변경 후에 호출될 코드
+            }
+        })
     }
 
     private fun Int.dpToPx(): Int {
@@ -87,13 +128,14 @@ class CertificationActivity : AppCompatActivity() {
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         startActivityForResult(intent, GALLERY_REQUEST_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data?.data
             selectedImageUri?.let {
                 val imageView = ImageView(this)
@@ -111,6 +153,19 @@ class CertificationActivity : AppCompatActivity() {
 
                 // 리니어레이아웃이 사진이 있는 경우에만 보이도록 설정
                 binding.photoLayout.visibility = LinearLayout.VISIBLE
+            }
+
+            if (data.clipData != null) {
+                // 다중 이미지 선택
+                val count = data.clipData!!.itemCount
+                for (i in 0 until count) {
+                    val imageUri = data.clipData!!.getItemAt(i).uri
+                    selectedImages.add(imageUri)
+                }
+            } else if (data.data != null) {
+                // 단일 이미지 선택
+                val imageUri = data.data
+                selectedImages.add(imageUri!!)
             }
         }
     }
@@ -146,6 +201,7 @@ class CertificationActivity : AppCompatActivity() {
         val clickedStarIndex = binding.reviewLayout.indexOfChild(starView)
         val filledStarDrawable = R.drawable.ic_star_filled
         val emptyStarDrawable = R.drawable.ic_star_empty
+        var count = 0
 
         for (i in 0 until clickedStarIndex) {
             val starImageView = binding.reviewLayout.getChildAt(i) as ImageView
@@ -166,5 +222,13 @@ class CertificationActivity : AppCompatActivity() {
             starImageView.setImageResource(emptyStarDrawable)
             starImageView.tag = "empty"
         }//클릭된 별 이후에 있는 별들을 비우는 코드
+
+        for (i in 0 until binding.reviewLayout.childCount) {
+            count = 0
+            if (starView.tag == "filled") {
+                count++
+            }
+            grade = count
+        }
     }
 }
