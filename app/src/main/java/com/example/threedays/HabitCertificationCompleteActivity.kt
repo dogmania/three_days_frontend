@@ -23,6 +23,7 @@ class HabitCertificationCompleteActivity : AppCompatActivity() {
 
         binding.btnClose.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("nickname", nickname)
             startActivity(intent)
         }
     }

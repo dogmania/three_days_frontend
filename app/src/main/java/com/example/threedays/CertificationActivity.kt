@@ -4,12 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
 import com.example.threedays.databinding.ActivityCertificationBinding
@@ -72,19 +70,11 @@ class CertificationActivity : AppCompatActivity() {
     }
 
     private fun completeCertification(selectedImages: MutableList<Uri>, habitReview: String?, grade: Int) {
-        Toast.makeText(applicationContext, "Selected Images: $selectedImages", Toast.LENGTH_SHORT).show()
-        Toast.makeText(applicationContext, "Habit Review: $habitReview", Toast.LENGTH_SHORT).show()
-        Toast.makeText(applicationContext, "Grade: $grade", Toast.LENGTH_SHORT).show()
-
         val user = userManager.getUser(name)!!
-        val habit = user.habits.find {it.habitName == habit}
-        habit?.let {
-            val certification = HabitCertification(
-                image = selectedImages,
-                habitReview = habitReview,
-                grade = grade
-                )
-        }
+        val habit = user.habits.find {it.habitName == habit}!!
+        val certification = HabitCertification(habit.habitName, selectedImages, habitReview, grade)
+
+        user.certification?.add(certification)
     }
 
     private fun addEditText() {
@@ -167,6 +157,9 @@ class CertificationActivity : AppCompatActivity() {
                 val imageUri = data.data
                 selectedImages.add(imageUri!!)
             }
+        } else {
+            val defaultImageUri = Uri.parse("android.resource://com.example.threedays/" + R.drawable.default_image)
+            selectedImages.add(defaultImageUri)
         }
     }
 

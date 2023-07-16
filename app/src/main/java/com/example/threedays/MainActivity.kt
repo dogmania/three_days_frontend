@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.threedays.databinding.ActivityFirstPageBinding
 import com.example.threedays.view.home.HomeFragment
+import com.example.threedays.view.sns.HabitUploadFragment
 import com.example.threedays.view.sns.ProfileFragment
 import com.example.threedays.view.sns.SnsFragment
 
@@ -45,6 +46,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnProfile.setOnClickListener {
             setProfileFragment(nickname)
+        }
+
+        binding.btnThumbsUp.setOnClickListener {
+            setHabitUploadFragment(nickname)
         }
     }
 
@@ -115,11 +120,24 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(habitModifyFragment)
     }
 
+    private fun setHabitUploadFragment(nickname: String) {
+        val habitUploadFragment = HabitUploadFragment().apply {
+            arguments = Bundle().apply {
+                putString("nickname", nickname)
+            }
+        }
+
+        replaceFragment(habitUploadFragment)
+    }
+
     private fun replaceFragment(fragment: Fragment) {
         if (fragment is HabitFragment) {
             binding.title.visibility = View.VISIBLE
             binding.btnAdd.visibility = View.VISIBLE
         } else if (fragment is ProfileFragment) {
+            binding.title.visibility = View.GONE
+            binding.btnAdd.visibility = View.GONE
+        } else if (fragment is HabitUploadFragment) {
             binding.title.visibility = View.GONE
             binding.btnAdd.visibility = View.GONE
         }

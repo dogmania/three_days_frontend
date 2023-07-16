@@ -12,6 +12,7 @@ import com.example.threedays.databinding.ActivityMemberInformationBinding
 
 val userManager = UserManager.getInstance()
 
+
 class MemberInformationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemberInformationBinding
     private lateinit var keywordEditTextContainer: LinearLayout
@@ -57,6 +58,7 @@ class MemberInformationActivity : AppCompatActivity() {
         val nickname = binding.nicknameEdittext.text.toString()
         val keywords: MutableList<String> = mutableListOf()
         val habits = mutableListOf<Habit>()
+        val certification = mutableListOf<HabitCertification>()
 
         for (i in 0 until keywordEditTextContainer.childCount) { // 추가한 EditText 개수만큼 반복
             val keywordEditText = keywordEditTextContainer.getChildAt(i) as EditText // EditText 위치한 곳부터 가져옴
@@ -71,7 +73,7 @@ class MemberInformationActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT).show()
         } else {
             Thread {//백그라운드 스레드에서 유저 정보를 저장하는 작업을 실행
-                val user = User(nickname, keywords, habits)
+                val user = User(nickname, keywords, habits, certification)
                 userManager.addUser(user)
                 runOnUiThread{//유저 정보를 저장하는 과정이 끝나면 토스트 메시지로 완료되었음을 사용자에게 전달
                     Toast.makeText(this, "완료되었습니다.",
