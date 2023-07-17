@@ -38,7 +38,6 @@ class PostAdapter(private val habitCertification: List<HabitCertification>?, pri
 
             val imageAdapter = ImageAdapter(habitCertificationData.image!!)
             holder.viewPager.adapter = imageAdapter
-            holder.habitName.text = habitCertificationData.habitName
             holder.reviewText.text = habitCertificationData.habitReview
             holder.reviewLayout.visibility = View.VISIBLE
 

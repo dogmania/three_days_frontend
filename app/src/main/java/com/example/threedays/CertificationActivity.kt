@@ -62,6 +62,10 @@ class CertificationActivity : AppCompatActivity() {
         binding.reviewLayout.visibility = View.GONE
 
         binding.btnComplete.setOnClickListener {
+            if (selectedImages.isEmpty()) {
+                val defaultImageUri = Uri.parse("android.resource://com.example.threedays/" + R.drawable.default_image)
+                selectedImages.add(defaultImageUri)
+            }
             completeCertification(selectedImages, habitReview, grade)
             val intent = Intent(this, HabitCertificationCompleteActivity::class.java)
             intent.putExtra("nickname", nickname)
@@ -72,9 +76,9 @@ class CertificationActivity : AppCompatActivity() {
     private fun completeCertification(selectedImages: MutableList<Uri>, habitReview: String?, grade: Int) {
         val user = userManager.getUser(name)!!
         val habit = user.habits.find {it.habitName == habit}!!
-        val certification = HabitCertification(habit.habitName, selectedImages, habitReview, grade)
+        val certification = HabitCertification(selectedImages, habitReview, grade)
 
-        user.certification?.add(certification)
+        habit.certification?.add(certification)
     }
 
     private fun addEditText() {

@@ -12,6 +12,7 @@ class AddHabitThirdActivity : AppCompatActivity() {
     private lateinit var buttons : Array<ToggleButton>
     private var disclosure : Boolean = false
     private var movable : Boolean = false
+    private var certification = mutableListOf<HabitCertification>()
     private val default = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +60,7 @@ class AddHabitThirdActivity : AppCompatActivity() {
         }
 
         if (movable) {
-            val habit = Habit(period, habitName, disclosure)
+            val habit = Habit(period, habitName, disclosure, certification)
             val user = userManager.getUser(nickname)!!
             user.habits.add(habit)
 
