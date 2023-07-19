@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/set_period_text"
                 android:textSize="23sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/pretendard_bold"
                 android:textColor="@color/black"/>
 
             <LinearLayout
@@ -89,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/set_period_text_question"
                     android:textSize="13sp"
+                    android:fontFamily="@font/pretendard"
                     android:textColor="@color/black"/>
 
                 <TextView
@@ -97,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/set_period_text_suggestion"
                     android:textSize="13sp"
+                    android:fontFamily="@font/pretendard"
                     android:textColor="@color/black"/>
             </LinearLayout>
 
@@ -125,7 +127,7 @@
                     android:background="@drawable/btn_white_background"
                     android:textOn="@string/day1"
                     android:textOff="@string/day1"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/pretendard_bold"
                     android:textColor="@color/black"
                     android:textSize="23sp"/>
 
@@ -142,7 +144,7 @@
                     android:background="@drawable/btn_white_background"
                     android:textOn="@string/day2"
                     android:textOff="@string/day2"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/pretendard_bold"
                     android:textColor="@color/black"
                     android:textSize="23sp"/>
 
@@ -159,7 +161,7 @@
                     android:background="@drawable/btn_white_background"
                     android:textOn="@string/day3"
                     android:textOff="@string/day3"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/pretendard_bold"
                     android:textColor="@color/black"
                     android:textSize="23sp"/>
 
@@ -181,7 +183,7 @@
                     android:background="@drawable/btn_white_background"
                     android:textOn="@string/day4"
                     android:textOff="@string/day4"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/pretendard_bold"
                     android:textColor="@color/black"
                     android:textSize="23sp"/>
 
@@ -198,7 +200,7 @@
                     android:background="@drawable/btn_white_background"
                     android:textOn="@string/day5"
                     android:textOff="@string/day5"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/pretendard_bold"
                     android:textColor="@color/black"
                     android:textSize="23sp"/>
 
@@ -215,7 +217,7 @@
                     android:background="@drawable/btn_white_background"
                     android:textOn="@string/day6"
                     android:textOff="@string/day6"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/pretendard_bold"
                     android:textColor="@color/black"
                     android:textSize="23sp"/>
 
@@ -233,9 +235,8 @@
                     android:textOn="@string/day7"
                     android:textOff="@string/day7"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/pretendard_bold"
                     android:textSize="23sp"/>
-
 
             </LinearLayout>
 

@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.threedays.Habit
 import com.example.threedays.HabitCertification
 import com.example.threedays.R
+import com.example.threedays.User
 import com.example.threedays.databinding.ItemHabitUploadBinding
 import com.example.threedays.databinding.ItemImageBinding
 
-class PostAdapter(private val habitCertification: List<HabitCertification>?, private val nickname: String): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
+class PostAdapter(private val following: List<User>): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
 
     inner class PostViewHolder(binding: ItemHabitUploadBinding) : RecyclerView.ViewHolder(binding.root) {
         val profileImage = binding.profileImage
@@ -33,28 +35,28 @@ class PostAdapter(private val habitCertification: List<HabitCertification>?, pri
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        if (habitCertification != null) {
-            val habitCertificationData = habitCertification[position]
-
-            val imageAdapter = ImageAdapter(habitCertificationData.image!!)
-            holder.viewPager.adapter = imageAdapter
-            holder.reviewText.text = habitCertificationData.habitReview
-            holder.reviewLayout.visibility = View.VISIBLE
-
-            if (habitCertificationData.grade != 0) {
-                val filledStarDrawable = R.drawable.ic_star_filled
-                val emptyStarDrawable = R.drawable.ic_star_empty
-
-                for (i in 0 until habitCertificationData.grade) {
-                    val starImageView = holder.reviewLayout.getChildAt(i) as ImageView
-                    starImageView.setImageResource(filledStarDrawable)
-                }
-            }
-        }
+//        if (habitCertification != null) {
+//            val habitCertificationData = habitCertification[position]
+//
+//            val imageAdapter = ImageAdapter(habitCertificationData.image!!)
+//            holder.viewPager.adapter = imageAdapter
+//            holder.reviewText.text = habitCertificationData.habitReview
+//            holder.reviewLayout.visibility = View.VISIBLE
+//
+//            if (habitCertificationData.grade != 0) {
+//                val filledStarDrawable = R.drawable.ic_star_filled
+//                val emptyStarDrawable = R.drawable.ic_star_empty
+//
+//                for (i in 0 until habitCertificationData.grade) {
+//                    val starImageView = holder.reviewLayout.getChildAt(i) as ImageView
+//                    starImageView.setImageResource(filledStarDrawable)
+//                }
+//            }
+//        }
     }
 
     override fun getItemCount(): Int {
-        return habitCertification?.size ?: 0
+        return following.size
     }
 
     inner class ImageAdapter(private val imageUriList: List<Uri>): RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {

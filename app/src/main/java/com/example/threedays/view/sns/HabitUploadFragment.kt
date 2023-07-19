@@ -29,11 +29,6 @@ class HabitUploadFragment : Fragment() {
 
         val nickname = requireActivity().intent.getStringExtra("nickname") ?: ""
         val user = userManager.getUser(nickname)!!
-//        val certification = user.habits
-//
-//        postAdapter = PostAdapter(certification, nickname)
-//        binding.recyclerView.adapter = postAdapter
-//
-//        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
     }
 }

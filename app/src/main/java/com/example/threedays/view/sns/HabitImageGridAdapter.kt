@@ -7,6 +7,11 @@ import com.example.threedays.HabitCertification
 import com.example.threedays.databinding.ItemHabitImageBinding
 
 class HabitImageGridAdapter(private val certification: List<HabitCertification>): RecyclerView.Adapter<HabitImageGridAdapter.GridViewHolder>() {
+    private var onItemClickListener: OnItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, certification: List<HabitCertification>)
+    }
 
     inner class GridViewHolder(binding: ItemHabitImageBinding): RecyclerView.ViewHolder(binding.root) {
         val habitImage = binding.habitImage
@@ -25,9 +30,17 @@ class HabitImageGridAdapter(private val certification: List<HabitCertification>)
         val firstUri = certificationData.image[0]
 
         holder.habitImage.setImageURI(firstUri)
+
+        holder.root.setOnClickListener {
+            onItemClickListener?.onItemClick(holder.adapterPosition, certification)
+        }
     }
 
     override fun getItemCount(): Int {
         return certification.size
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        onItemClickListener = listener
     }
 }
