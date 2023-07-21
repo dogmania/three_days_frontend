@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val app = applicationContext as GlobalApplication
+
         val nickname : String = intent.getStringExtra("nickname")!! //onCreate 함수 안에서 변수를 가져와야 함
         val user = userManager.getUser(nickname)!!
         habits = user.habits

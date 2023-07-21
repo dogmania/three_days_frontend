@@ -117,8 +117,8 @@ class KakaoLoginActivity : AppCompatActivity() {
         else if (token != null) {
             Log.e(TAG, "로그인 성공 ${token.accessToken}")
             makeToast()
-            val intent = Intent(this, FirstPageActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, FirstPageActivity::class.java)
+//            startActivity(intent)
         }
     }
 }
