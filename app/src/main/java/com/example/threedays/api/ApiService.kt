@@ -6,4 +6,7 @@ import retrofit2.http.POST
 interface ApiService {
     @POST("/api/token")
     suspend fun getJwtToken(@Body request: TokenRequest): TokenResponse
+
+    @POST("/api/login")
+    suspend fun getUserData(@Body request: String) : UserData
 }

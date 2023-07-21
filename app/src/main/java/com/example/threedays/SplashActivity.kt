@@ -48,10 +48,16 @@ class SplashActivity : AppCompatActivity() {
 
                         saveAccessToken(tokenResponse.accessToken)
                         saveRefreshToken(tokenResponse.refreshToken)
+
+                        getUserData(tokenResponse.accessToken)
+
                     } catch (e: Exception) {
                         Log.e("SplashActivity", "Error during API call: ${e.message}", e)
                     }
                 }
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
 
             // 이전 키를 눌렀을 때 스플래시 스크린 화면으로 이동을 방지하기 위해
@@ -95,5 +101,20 @@ class SplashActivity : AppCompatActivity() {
 
     private fun saveRefreshToken(refreshToken: String) {
         sharedPreferences.edit().putString("refresh_token", refreshToken).apply()
+    }
+
+    private fun getUserData(accessToken: String) {
+        val app = applicationContext as GlobalApplication
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = app.apiService.getUserData(accessToken)
+
+                app.email = response.email
+                app.nickname = response.nickname
+            } catch (e: Exception) {
+                Log.e("SplashActivity", "Error during API call: ${e.message}", e)
+            }
+        }
     }
 }
