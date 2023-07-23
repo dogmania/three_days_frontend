@@ -14,31 +14,44 @@ import com.example.threedays.view.sns.HabitUploadFragment
 import com.example.threedays.view.sns.MyHabitFragment
 import com.example.threedays.view.sns.ProfileFragment
 import com.example.threedays.view.sns.SnsFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import com.example.threedays.api.Habit
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var habits : MutableList<Habit>
+    private lateinit var app: GlobalApplication
+    private lateinit var email: String
+    private lateinit var nickname: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val app = applicationContext as GlobalApplication
+        app = applicationContext as GlobalApplication
 
-        val nickname : String = intent.getStringExtra("nickname")!! //onCreate 함수 안에서 변수를 가져와야 함
-        val user = userManager.getUser(nickname)!!
-        habits = user.habits
+        nickname = app.nickname
+        email = app.email
 
-        if (habits.isNullOrEmpty()) {
-            setEmptyFragment(nickname)//유저의 습관 목록이 비어있다면 그에 맞는 프래그먼트 설정
-        } else {
-            setHabitFragment(nickname)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                habits = app.apiService.getHabits(email)
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error during getHabits API call: ${e.message}", e)
+            }
+
+            if (habits.isNullOrEmpty()) {
+                setEmptyFragment(nickname)//유저의 습관 목록이 비어있다면 그에 맞는 프래그먼트 설정
+            } else {
+                setHabitFragment(nickname)
+            }
         }
 
         binding.btnAdd.setOnClickListener {
             val intent = Intent(this, AddHabitFirstActivity::class.java)
-            intent.putExtra("nickname", nickname)
             startActivity(intent)
             finish()
         }
@@ -59,14 +72,18 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val nickname : String = intent.getStringExtra("nickname")!! //onCreate 함수 안에서 변수를 가져와야 함
-        val user = userManager.getUser(nickname)!!
-        habits = user.habits
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                habits = app.apiService.getHabits(email)
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error during getHabits API call: ${e.message}", e)
+            }
 
-        if (habits.isNullOrEmpty()) {
-            setEmptyFragment(nickname)//유저의 습관 목록이 비어있다면 그에 맞는 프래그먼트 설정
-        } else {
-            setHabitFragment(nickname)
+            if (habits.isNullOrEmpty()) {
+                setEmptyFragment(nickname)//유저의 습관 목록이 비어있다면 그에 맞는 프래그먼트 설정
+            } else {
+                setHabitFragment(nickname)
+            }
         }
     }
 
@@ -164,5 +181,16 @@ class MainActivity : AppCompatActivity() {
             // 스택에 프래그먼트가 없는 경우, 기본 뒤로가기 동작을 수행합니다.
             super.onBackPressed()
         }
+    }
+
+    fun getHabits(): MutableList<com.example.threedays.api.Habit> {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                habits = app.apiService.getHabits(email)
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error during getHabits API call: ${e.message}", e)
+            }
+        }
+        return habits
     }
 }

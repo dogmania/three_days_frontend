@@ -28,8 +28,8 @@ class HabitFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val nickname = requireActivity().intent.getStringExtra("nickname") ?: ""
-        val user = userManager.getUser(nickname)!!
-        val habits = user.habits
+        val mainActivity = requireActivity() as? MainActivity
+        val habits = mainActivity?.getHabits()!!
 
         habitAdapter = HabitAdapter(habits, requireContext(), nickname)
         binding.habitRecyclerView.adapter = habitAdapter
