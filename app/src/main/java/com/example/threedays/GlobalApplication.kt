@@ -17,8 +17,8 @@ class GlobalApplication : Application() {
         // 다른 초기화 코드들
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://threedays-env-1.eba-di3ir3iz.ap-northeast-2.elasticbeanstalk.com/v3/api-docs")
-            .addConverterFactory(GsonConverterFactory.create()) // JSON 데이터 처리를 위한 Gson 컨버터 사용
+            .baseUrl("http://threedays-env-1.eba-di3ir3iz.ap-northeast-2.elasticbeanstalk.com")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         apiService = retrofit.create(ApiService::class.java)
