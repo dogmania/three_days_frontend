@@ -1,6 +1,7 @@
 package com.example.threedays
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract.Profile
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var app: GlobalApplication
     private lateinit var email: String
     private lateinit var nickname: String
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +34,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         app = applicationContext as GlobalApplication
+        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
 
         nickname = app.nickname
-        email = app.email
+        email = sharedPreferences.getString("email", null)!!
 
         CoroutineScope(Dispatchers.IO).launch {
             try {

@@ -15,8 +15,9 @@ class HabitAdapter(private val habits: List<com.example.threedays.api.Habit>, pr
     inner class MyViewHolder(binding : ItemHabitBinding) : RecyclerView.ViewHolder(binding.root) {
         val habitName = binding.habitName
         val period = binding.period
-        val achievementRate = binding.achievementRate
+        val achievementRate = binding.achievementRateNum
         val combo = binding.combo
+        val currentAchievement = binding.currentAchievements
         val numOfAchievement = binding.numberOfAchievements
         val btnCertification = binding.btnCertification
 
@@ -34,9 +35,10 @@ class HabitAdapter(private val habits: List<com.example.threedays.api.Habit>, pr
 
         holder.habitName.text = habitData.title
         holder.period.text = "🗓️목표: 주 " + habitData.duration + "회 " + "달성"
-        holder.achievementRate.text = habitData.achievementRate.toString() + "%"
-        holder.combo.text = habitData.comboCount.toString() + "combo"
-        holder.numOfAchievement.text = habitData.achievementCount.toString() + "/" + habitData.duration.toString()
+        holder.achievementRate.text = habitData.achievementRate.toString()
+        holder.combo.text = habitData.comboCount.toString()
+        holder.currentAchievement.text = habitData.achievementCount.toString()
+        holder.numOfAchievement.text = habitData.duration.toString()
 
         holder.btnCertification.setOnClickListener {
             val context = holder.itemView.context
