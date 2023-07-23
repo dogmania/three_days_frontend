@@ -19,7 +19,8 @@ open class AddHabitFirstActivity : AppCompatActivity() {
         binding = ActivityAddHabitFirstBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val nickname = intent.getStringExtra("nickname")!!
+        val app = applicationContext as GlobalApplication
+        val nickname = app.nickname
 
         buttons = arrayOf(
             binding.btnDay1,

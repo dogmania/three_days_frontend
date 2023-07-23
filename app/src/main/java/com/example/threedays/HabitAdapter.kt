@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.threedays.databinding.ItemHabitBinding
 
-class HabitAdapter(private val habits: List<Habit>, private val context: Context, private val nickname: String)
+class HabitAdapter(private val habits: List<com.example.threedays.api.Habit>, private val context: Context, private val nickname: String)
     : RecyclerView.Adapter<HabitAdapter.MyViewHolder> () {
 
     inner class MyViewHolder(binding : ItemHabitBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -32,16 +32,16 @@ class HabitAdapter(private val habits: List<Habit>, private val context: Context
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val habitData = habits[position]
 
-        holder.habitName.text = habitData.habitName
-        holder.period.text = "🗓️목표: 주 " + habitData.period + "회 " + "달성"
+        holder.habitName.text = habitData.title
+        holder.period.text = "🗓️목표: 주 " + habitData.duration + "회 " + "달성"
         holder.achievementRate.text = habitData.achievementRate.toString() + "%"
-        holder.combo.text = habitData.combo.toString() + "combo"
-        holder.numOfAchievement.text = habitData.numOfAchievement.toString() + "/" + habitData.period.toString()
+        holder.combo.text = habitData.comboCount.toString() + "combo"
+        holder.numOfAchievement.text = habitData.achievementCount.toString() + "/" + habitData.duration.toString()
 
         holder.btnCertification.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, CertificationActivity::class.java)
-            intent.putExtra("habitName", habitData.habitName) // 선택된 습관의 이름 전달
+            intent.putExtra("habitName", habitData.title) // 선택된 습관의 이름 전달
             intent.putExtra("nickname", nickname)
             context.startActivity(intent)
         }

@@ -3,9 +3,15 @@ package com.example.threedays
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings.Global
+import android.util.Log
 import android.widget.Toast
 import android.widget.ToggleButton
+import com.example.threedays.api.CreateHabit
 import com.example.threedays.databinding.ActivityAddHabitThirdBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AddHabitThirdActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddHabitThirdBinding
@@ -60,12 +66,24 @@ class AddHabitThirdActivity : AppCompatActivity() {
         }
 
         if (movable) {
-            val habit = Habit(period, habitName, disclosure, certification)
-            val user = userManager.getUser(nickname)!!
-            user.habits.add(habit)
+            val app = applicationContext as GlobalApplication
+
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    app.apiService.createHabit(
+                        CreateHabit(
+                        period,
+                        app.email,
+                        habitName,
+                        disclosure
+                        )
+                    )
+                } catch (e:Exception) {
+                    Log.e("AddHabitThirdActivity", "Error during createHabit API call", e)
+                }
+            }
 
             val intent = Intent(this, HabitFormationCompleteActivity::class.java)
-            intent.putExtra("nickname", nickname)
             startActivity(intent)
 
         } else {
