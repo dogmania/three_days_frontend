@@ -4,11 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
+import com.example.threedays.api.UserInfo
 import com.example.threedays.databinding.ActivityMemberInformationBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 val userManager = UserManager.getInstance()
 
@@ -16,7 +21,6 @@ val userManager = UserManager.getInstance()
 class MemberInformationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemberInformationBinding
     private lateinit var keywordEditTextContainer: LinearLayout
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +59,10 @@ class MemberInformationActivity : AppCompatActivity() {
     }
 
     private fun insertUser() {
-        val nickname = binding.nicknameEdittext.text.toString()
+        val app = applicationContext as GlobalApplication
+
+        app.nickname = binding.nicknameEdittext.text.toString()
+        val nickname = app.nickname
         val keywords: MutableList<String> = mutableListOf()
         val habits = mutableListOf<Habit>()
 
@@ -71,18 +78,19 @@ class MemberInformationActivity : AppCompatActivity() {
             Toast.makeText(this, "모든 항목을 채워주세요.",
                 Toast.LENGTH_SHORT).show()
         } else {
-            Thread {//백그라운드 스레드에서 유저 정보를 저장하는 작업을 실행
-                val user = User(nickname, keywords, habits)
-                userManager.addUser(user)
-                runOnUiThread{//유저 정보를 저장하는 과정이 끝나면 토스트 메시지로 완료되었음을 사용자에게 전달
-                    Toast.makeText(this, "완료되었습니다.",
-                        Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("nickname", nickname)
-                    startActivity(intent)
-                    finish()
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val response = app.apiService.saveProfile(UserInfo(app.email, keywords, app.nickname))
+                } catch (e: Exception) {
+                    Log.e("MemberInformationActivity", "Error during saveProfile API call", e)
                 }
-            }.start()
+            }
+
+            Toast.makeText(this, "완료되었습니다.",
+                Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
