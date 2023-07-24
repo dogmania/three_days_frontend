@@ -1,6 +1,8 @@
 package com.example.threedays
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings.Global
@@ -12,18 +14,20 @@ import com.example.threedays.databinding.ActivityAddHabitThirdBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AddHabitThirdActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddHabitThirdBinding
     private lateinit var buttons : Array<ToggleButton>
     private var disclosure : Boolean = false
     private var movable : Boolean = false
-    private var certification = mutableListOf<HabitCertification>()
     private val default = 0
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddHabitThirdBinding.inflate(layoutInflater)
+        sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         setContentView(binding.root)
 
         buttons = arrayOf(binding.btnYes, binding.btnNo)
@@ -67,13 +71,14 @@ class AddHabitThirdActivity : AppCompatActivity() {
 
         if (movable) {
             val app = applicationContext as GlobalApplication
+            val email = sharedPreferences.getString("email", null)!!
 
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     app.apiService.createHabit(
                         CreateHabit(
                         period,
-                        app.email,
+                        email,
                         habitName,
                         disclosure
                         )
@@ -81,10 +86,12 @@ class AddHabitThirdActivity : AppCompatActivity() {
                 } catch (e:Exception) {
                     Log.e("AddHabitThirdActivity", "Error during createHabit API call", e)
                 }
-            }
 
-            val intent = Intent(this, HabitFormationCompleteActivity::class.java)
-            startActivity(intent)
+                withContext(Dispatchers.Main) {
+                    val intent = Intent(this@AddHabitThirdActivity, HabitFormationCompleteActivity::class.java)
+                    startActivity(intent)
+                }
+            }
 
         } else {
             Toast.makeText(this, "공개 여부를 선택해주세요",
