@@ -1,8 +1,11 @@
 package com.example.threedays
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings.Global
 import android.text.InputType
 import android.util.Log
 import android.view.View
@@ -21,10 +24,14 @@ val userManager = UserManager.getInstance()
 class MemberInformationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemberInformationBinding
     private lateinit var keywordEditTextContainer: LinearLayout
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMemberInformationBinding.inflate(layoutInflater)
+
+        sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+
         keywordEditTextContainer = binding.keywordEdittextContainer
 
         setContentView(binding.root)
@@ -61,10 +68,11 @@ class MemberInformationActivity : AppCompatActivity() {
     private fun insertUser() {
         val app = applicationContext as GlobalApplication
 
-        app.nickname = binding.nicknameEdittext.text.toString()
-        val nickname = app.nickname
+        val nickname = binding.nicknameEdittext.text.toString()
+        sharedPreferences.edit().putString("nickname", nickname).apply()
+        val email = sharedPreferences.getString("email", null)!!
+
         val keywords: MutableList<String> = mutableListOf()
-        val habits = mutableListOf<Habit>()
 
         for (i in 0 until keywordEditTextContainer.childCount) { // 추가한 EditText 개수만큼 반복
             val keywordEditText = keywordEditTextContainer.getChildAt(i) as EditText // EditText 위치한 곳부터 가져옴
@@ -80,7 +88,7 @@ class MemberInformationActivity : AppCompatActivity() {
         } else {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val response = app.apiService.saveProfile(UserInfo(app.email, keywords, app.nickname))
+                    val response = app.apiService.saveProfile(UserInfo(email, keywords, nickname))
                 } catch (e: Exception) {
                     Log.e("MemberInformationActivity", "Error during saveProfile API call", e)
                 }
