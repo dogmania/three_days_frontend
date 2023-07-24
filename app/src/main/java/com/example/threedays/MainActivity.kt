@@ -1,5 +1,6 @@
 package com.example.threedays
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.example.threedays.api.Habit
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -34,9 +36,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         app = applicationContext as GlobalApplication
-        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
 
-        nickname = app.nickname
+        nickname = sharedPreferences.getString("nickname", null)!!
         email = sharedPreferences.getString("email", null)!!
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -46,10 +48,12 @@ class MainActivity : AppCompatActivity() {
                 Log.e("MainActivity", "Error during getHabits API call: ${e.message}", e)
             }
 
-            if (habits.isNullOrEmpty()) {
-                setEmptyFragment(nickname)//유저의 습관 목록이 비어있다면 그에 맞는 프래그먼트 설정
-            } else {
-                setHabitFragment(nickname)
+            withContext(Dispatchers.Main) {
+                if (habits.isNullOrEmpty()) {
+                    setEmptyFragment(nickname)//유저의 습관 목록이 비어있다면 그에 맞는 프래그먼트 설정
+                } else {
+                    setHabitFragment(nickname)
+                }
             }
         }
 
@@ -82,10 +86,12 @@ class MainActivity : AppCompatActivity() {
                 Log.e("MainActivity", "Error during getHabits API call: ${e.message}", e)
             }
 
-            if (habits.isNullOrEmpty()) {
-                setEmptyFragment(nickname)//유저의 습관 목록이 비어있다면 그에 맞는 프래그먼트 설정
-            } else {
-                setHabitFragment(nickname)
+            withContext(Dispatchers.Main) {
+                if (habits.isNullOrEmpty()) {
+                    setEmptyFragment(nickname)//유저의 습관 목록이 비어있다면 그에 맞는 프래그먼트 설정
+                } else {
+                    setHabitFragment(nickname)
+                }
             }
         }
     }
