@@ -43,7 +43,7 @@ class AddHabitThirdActivity : AppCompatActivity() {
         val nickname = intent.getStringExtra("nickname")!!
 
         binding.btnComplete.setOnClickListener {
-            insertHabit(period, habitName, nickname)
+            insertHabit(period, habitName)
         }
     }
 
@@ -62,7 +62,7 @@ class AddHabitThirdActivity : AppCompatActivity() {
         }
     }
 
-    private fun insertHabit(period : Int, habitName : String, nickname : String) {
+    private fun insertHabit(period : Int, habitName : String) {
         for (i in buttons.indices) {
             if(buttons[i].isChecked) {
                 movable = true
