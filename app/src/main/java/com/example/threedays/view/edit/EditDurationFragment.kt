@@ -1,60 +1,106 @@
 package com.example.threedays.view.edit
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.ToggleButton
+import com.example.threedays.AddHabitSecondActivity
+import com.example.threedays.HabitFragment
+import com.example.threedays.MainActivity
 import com.example.threedays.R
+import com.example.threedays.databinding.FragmentEditDurationBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EditDurationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EditDurationFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentEditDurationBinding
+    private lateinit var buttons : Array<ToggleButton>
+    private var period : Int = 0
+    private var movable = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_duration, container, false)
+        binding = FragmentEditDurationBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EditDurationFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EditDurationFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val id = arguments?.getLong("id")!!
+
+        buttons = arrayOf(
+            binding.btnDay1,
+            binding.btnDay2,
+            binding.btnDay3,
+            binding.btnDay4,
+            binding.btnDay5,
+            binding.btnDay6,
+            binding.btnDay7
+        )
+
+        for (i in buttons.indices) {
+            buttons[i].setOnClickListener {
+                selectButton(buttons, i)
+            }
+        }
+
+        binding.btnBack.setOnClickListener {
+            val mainActivity = requireActivity() as MainActivity
+            mainActivity.closeFragment()
+        }
+
+        binding.btnClose.setOnClickListener {
+            val mainActivity = requireActivity() as MainActivity
+            mainActivity.closeFragment()
+        }
+
+        binding.btnComplete.setOnClickListener {
+            for (i in buttons.indices) {
+                if (buttons[i].isChecked) {
+                    movable = true
                 }
             }
+
+            if (movable) {
+                val mainActivity = requireActivity() as MainActivity
+                val fragment = EditTitleFragment().apply {
+                    arguments = Bundle().apply {
+                        putLong("id", id)
+                        putInt("duration", period)
+                    }
+                }
+
+                mainActivity.replaceFragmentMain(fragment, "editTitleFragment")
+            } else {
+                Toast.makeText(requireContext(), "기간을 선택해주세요.",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun selectButton(buttons : Array<ToggleButton>, index : Int) {
+        for (i in buttons.indices) {
+            buttons[i].isChecked = false
+            buttons[i].setBackgroundResource(R.drawable.btn_white_background)
+        }
+
+        buttons[index].isChecked = true
+        buttons[index].setBackgroundResource(R.drawable.btn_style_round_green)
+
+        when (index) {
+            0 -> period = 1
+            1 -> period = 2
+            2 -> period = 3
+            3 -> period = 4
+            4 -> period = 5
+            5 -> period = 6
+            6 -> period = 7
+        }
     }
 }
