@@ -1,172 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/item_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="340dp"
-    android:layout_height="192dp"
+    android:layout_width="300sp"
+    android:layout_height="230sp"
     android:orientation="vertical"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/round_frame_white">
+    android:background="@color/light_gray">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="10dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="29sp"
+            android:layout_height="29sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:button="@android:color/transparent"
+            android:background="@drawable/ic_checkbox_unchecked" />
 
-            <TextView
-                android:id="@+id/habit_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/habit_title"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/period"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/habit_period"
-                android:textStyle="bold"
-                android:textSize="12sp"/>
-
-        </LinearLayout>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <ToggleButton
-            android:id="@+id/btn_public"
-            android:layout_width="55dp"
-            android:layout_height="31dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/ic_btn_private"
-            android:textOff=""
-            android:textOn=""/>
-
+        <Button
+            android:id="@+id/btn_modify"
+            android:layout_width="67sp"
+            android:layout_height="33dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_yellow_background"
+            android:text="@string/modify"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/gray"/>
+    
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="15sp"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:id="@+id/item_layout"
+        android:layout_width="300sp"
+        android:layout_height="173sp"
+        android:orientation="vertical"
+        android:background="@drawable/round_frame_white">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/achievement_rate"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/habit_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/habit_title"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/habit_period"
+                    android:textStyle="bold"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:text="@string/percent"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold"/>
+                android:layout_weight="1"/>
 
-            <TextView
-                android:id="@+id/achievement_rate_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_gravity="center"
-                android:text="@string/achievement_rate"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/gray"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/combo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/combo"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                android:gravity="center"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:id="@+id/combo_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="@string/combo_text"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_gravity="center"/>
+            <ToggleButton
+                android:id="@+id/btn_public"
+                android:layout_width="55dp"
+                android:layout_height="31dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/ic_btn_private"
+                android:textOff=""
+                android:textOn=""/>
 
         </LinearLayout>
 
         <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
             android:background="@color/gray"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/number_of_achievements"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:text="@string/number_of_achievements"
-                android:textColor="@color/black"
-                android:textSize="36sp"
-                android:textStyle="bold"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/number_of_achievements_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_gravity="center"
-                android:text="@string/number_of_achievements_text"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/achievement_rate_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/achievement_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/percent"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_alignBottom="@id/achievement_rate_num"
+                        android:layout_toRightOf="@id/achievement_rate_num"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginBottom="2dp"/>
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/achievement_rate_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"
+                    android:text="@string/achievement_rate"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/combo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="34sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/combo_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/combo_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/current_achievements"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/red"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:textColor="@color/black"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/number_of_achievements"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textColor="@color/black"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/number_of_achievements_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"
+                    android:text="@string/number_of_achievements_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
         </LinearLayout>
-
     </LinearLayout>
+
 
 </LinearLayout>
