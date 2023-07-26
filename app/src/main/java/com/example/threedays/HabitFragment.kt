@@ -27,8 +27,8 @@ class HabitFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val nickname = requireActivity().intent.getStringExtra("nickname") ?: ""
         val mainActivity = requireActivity() as? MainActivity
+        val nickname = mainActivity?.nickname!!
         val habits = mainActivity?.getHabits()!!
 
         habitAdapter = HabitAdapter(habits, requireContext(), nickname)
@@ -40,5 +40,22 @@ class HabitFragment : Fragment() {
             val mainActivity = requireActivity() as? MainActivity
             mainActivity?.showModifyFragment(nickname)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val mainActivity = requireActivity() as? MainActivity
+        val nickname = mainActivity?.nickname!!
+        val habits = mainActivity?.getHabits()!!
+
+        habitAdapter = HabitAdapter(habits, requireContext(), nickname)
+        binding.habitRecyclerView.adapter = habitAdapter
+
+        binding.habitRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    fun updateAdapter() {
+        habitAdapter.notifyDataSetChanged()
     }
 }

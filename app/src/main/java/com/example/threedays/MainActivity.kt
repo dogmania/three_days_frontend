@@ -20,14 +20,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.example.threedays.api.Habit
+import com.example.threedays.view.edit.EditDurationFragment
 import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var habits : MutableList<Habit>
     private lateinit var app: GlobalApplication
-    private lateinit var email: String
-    private lateinit var nickname: String
+    lateinit var email: String
+    lateinit var nickname: String
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        replaceFragment(fragment)
+        replaceFragment(fragment, "emptyFragment")
     }
 
     private fun setHabitFragment(nickname: String) {
@@ -119,7 +120,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        replaceFragment(fragment)
+        replaceFragment(fragment, "habitFragment")
     }
 
     private fun setProfileFragment(nickname: String) {
@@ -135,7 +136,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        replaceFragment(fragment)
+        replaceFragment(fragment, "profileFragment")
     }
 
     fun showModifyFragment(nickname: String) {
@@ -146,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                 putString("nickname", nickname)
             }
         }
-        replaceFragment(habitModifyFragment)
+        replaceFragment(habitModifyFragment, "habitModifyFragment")
     }
 
     private fun setHabitUploadFragment(nickname: String) {
@@ -156,27 +157,53 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        replaceFragment(habitUploadFragment)
+        replaceFragment(habitUploadFragment, "habitUploadFragment")
     }
 
-    fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment, tag: String) {
         if (fragment is HabitFragment) {
             binding.title.visibility = View.VISIBLE
             binding.btnAdd.visibility = View.VISIBLE
+            binding.navigationLayout.visibility = View.VISIBLE
+            binding.subFrame.visibility = View.VISIBLE
+            binding.mainFrame.visibility = View.GONE
         } else if (fragment is ProfileFragment) {
             binding.title.visibility = View.GONE
             binding.btnAdd.visibility = View.GONE
+            binding.navigationLayout.visibility = View.VISIBLE
+            binding.subFrame.visibility = View.VISIBLE
+            binding.mainFrame.visibility = View.GONE
         } else if (fragment is HabitUploadFragment) {
             binding.title.visibility = View.GONE
             binding.btnAdd.visibility = View.GONE
+            binding.navigationLayout.visibility = View.VISIBLE
+            binding.subFrame.visibility = View.VISIBLE
+            binding.mainFrame.visibility = View.GONE
         } else if (fragment is MyHabitFragment) {
             binding.title.visibility = View.GONE
             binding.btnAdd.visibility = View.GONE
+            binding.navigationLayout.visibility = View.VISIBLE
+            binding.subFrame.visibility = View.VISIBLE
+            binding.mainFrame.visibility = View.GONE
         }
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.sub_frame, fragment)
+            .replace(R.id.sub_frame, fragment, tag)
             .addToBackStack(null) // 이전 프래그먼트를 백스택에 추가
+            .commit()
+    }
+
+    fun replaceFragmentMain(fragment: Fragment, tag: String) {
+        if (fragment is EditDurationFragment) {
+            binding.title.visibility = View.GONE
+            binding.btnAdd.visibility = View.GONE
+            binding.navigationLayout.visibility = View.GONE
+            binding.subFrame.visibility = View.GONE
+            binding.mainFrame.visibility = View.VISIBLE
+        }
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frame, fragment, tag)
             .commit()
     }
 
@@ -184,10 +211,12 @@ class MainActivity : AppCompatActivity() {
         binding.navigationLayout.visibility = View.VISIBLE
 
         if (supportFragmentManager.backStackEntryCount > 0) {
-            // 스택에 프래그먼트가 남아있을 경우, 이전 프래그먼트로 돌아갑니다.
+            // 스택에 프래그먼트가 남아있을 경우, 이전 프래그먼트로 돌아감
+            updateHabitAdapter()
             supportFragmentManager.popBackStack()
         } else {
-            // 스택에 프래그먼트가 없는 경우, 기본 뒤로가기 동작을 수행합니다.
+            // 스택에 프래그먼트가 없는 경우, 기본 뒤로가기 동작을 수행
+            updateHabitAdapter()
             super.onBackPressed()
         }
     }
@@ -201,5 +230,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return habits
+    }
+
+    fun updateHabitAdapter() {
+        val habitFragment = supportFragmentManager.findFragmentByTag("habitFragment") as? HabitFragment
+        habitFragment?.updateAdapter()
+    }
+
+    fun closeFragment() {
+        supportFragmentManager.popBackStack()
     }
 }

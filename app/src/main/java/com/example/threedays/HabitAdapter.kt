@@ -20,7 +20,6 @@ class HabitAdapter(private val habits: List<com.example.threedays.api.Habit>, pr
         val currentAchievement = binding.currentAchievements
         val numOfAchievement = binding.numberOfAchievements
         val btnCertification = binding.btnCertification
-
         val root = binding.root
     }
 
