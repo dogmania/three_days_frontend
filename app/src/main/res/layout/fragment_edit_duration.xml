@@ -1,14 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.edit.EditDurationFragment">
+    android:background="@drawable/gradient_src">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/btn_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-</FrameLayout>
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_left"
+            android:background="@android:color/transparent"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close_icon"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/first_step_graph"
+        android:layout_width="300dp"
+        android:layout_height="23.15dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/edit_first_step_graph"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_layout"/>
+
+    <LinearLayout
+        android:id="@+id/set_period_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/first_step_graph">
+
+        <LinearLayout
+            android:id="@+id/set_period_text_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/set_period_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기간을 다시 설정해주세요"
+                android:textSize="23sp"
+                android:fontFamily="@font/pretendard_bold"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/set_period_text_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="지난 기간 동안 습관을 달성하는 게 벅찼다면"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/pretendard"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/set_period_text_suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기간을 조금 줄여봐도 괜찮아요 :D"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/pretendard"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/period_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/btn_day_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ToggleButton
+                    android:id="@+id/btn_day_1"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_white_background"
+                    android:textOn="@string/day1"
+                    android:textOff="@string/day1"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"/>
+
+                <ToggleButton
+                    android:id="@+id/btn_day_2"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_white_background"
+                    android:textOn="@string/day2"
+                    android:textOff="@string/day2"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"/>
+
+                <ToggleButton
+                    android:id="@+id/btn_day_3"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_white_background"
+                    android:textOn="@string/day3"
+                    android:textOff="@string/day3"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_day_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ToggleButton
+                    android:id="@+id/btn_day_4"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_white_background"
+                    android:textOn="@string/day4"
+                    android:textOff="@string/day4"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"/>
+
+                <ToggleButton
+                    android:id="@+id/btn_day_5"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_white_background"
+                    android:textOn="@string/day5"
+                    android:textOff="@string/day5"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"/>
+
+                <ToggleButton
+                    android:id="@+id/btn_day_6"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_white_background"
+                    android:textOn="@string/day6"
+                    android:textOff="@string/day6"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"/>
+
+                <ToggleButton
+                    android:id="@+id/btn_day_7"
+                    android:layout_width="69dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_white_background"
+                    android:textOn="@string/day7"
+                    android:textOff="@string/day7"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:textSize="23sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="304sp"
+            android:layout_height="24sp"
+            android:layout_marginTop="40sp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bulb"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Tip. 지난 기간 동안 기록한 난이도를 참고해보세요!"
+                android:textSize="13sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/arrow_right"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
