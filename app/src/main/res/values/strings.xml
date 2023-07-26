@@ -71,6 +71,8 @@
     <string name="achieving">달성중</string>
     <string name="achievement_rate2">달성률</string>
     <string name="followers">팔로워</string>
+    <string name="edit_habit">작심삼일 습관을\n조정해주세요</string>
+    <string name="edit_habit_text_suggestion">지난 기간 동안 습관을 이행하기 괜찮았나요?\n내가 체감한 난이도에 따라 습관의 수치를 조정해봐요!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
