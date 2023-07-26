@@ -90,7 +90,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/nickname_edittext"
                 android:hint="@string/nickname_hint_edt"
-                android:inputType="text"/>
+                android:inputType="text" />
 
         </LinearLayout>
 
