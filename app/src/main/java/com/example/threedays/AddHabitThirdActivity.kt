@@ -40,7 +40,6 @@ class AddHabitThirdActivity : AppCompatActivity() {
 
         val period = intent.getIntExtra("period", default)
         val habitName = intent.getStringExtra("habitName")!!
-        val nickname = intent.getStringExtra("nickname")!!
 
         binding.btnComplete.setOnClickListener {
             insertHabit(period, habitName)
