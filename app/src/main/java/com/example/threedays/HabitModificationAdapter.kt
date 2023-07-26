@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.threedays.databinding.ItemHabitModificationBinding
 
-class HabitModificationAdapter(private val habits: MutableList<com.example.threedays.api.Habit>, private val context: Context)
+class HabitModificationAdapter(private val habits: MutableList<com.example.threedays.api.Habit>, private val listener: HabitUpdateListener)
     : RecyclerView.Adapter<HabitModificationAdapter.MyViewHolder> () {
-    private var selectedPosition = -1
+
+    private val selectedHabits = mutableListOf<com.example.threedays.api.Habit>()
 
     inner class MyViewHolder(binding : ItemHabitModificationBinding) : RecyclerView.ViewHolder(binding.root) {
         val habitName = binding.habitName
@@ -20,25 +21,26 @@ class HabitModificationAdapter(private val habits: MutableList<com.example.three
         val btnPublic = binding.btnPublic
         val itemLayout = binding.itemLayout
         val checkBox = binding.checkBox
-
         val root = binding.root
+        val btnModify = binding.btnModify
 
         init {
             checkBox.setOnClickListener {
-                toggleCheckbox()
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val itemModel = habits[position]
+                    itemModel.isChecked = checkBox.isChecked
+                    if (itemModel.isChecked) {
+                        checkBox.setBackgroundResource(R.drawable.ic_checkbox_checked)
+                        addSelectedHabit(itemModel)
+                    } else {
+                        checkBox.setBackgroundResource(R.drawable.ic_checkbox_unchecked)
+                        removeSelectedHabit(itemModel)
+                    }
+                }
             }
         }
 
-        private fun toggleCheckbox() {
-            if (adapterPosition == selectedPosition) {
-                checkBox.isChecked = false
-                selectedPosition = -1
-            } else {
-                checkBox.isChecked = true
-                selectedPosition = adapterPosition
-            }
-            notifyDataSetChanged()
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -79,16 +81,28 @@ class HabitModificationAdapter(private val habits: MutableList<com.example.three
             }
         }
 
-        holder.checkBox.isChecked = holder.adapterPosition == selectedPosition
-
-        if(holder.checkBox.isChecked) {
-            holder.checkBox.setBackgroundResource(R.drawable.ic_checkbox_checked)
-        } else {
-            holder.checkBox.setBackgroundResource(R.drawable.ic_checkbox_unchecked)
+        holder.btnModify.setOnClickListener {
+            onEditButtonClicked(habitData)
         }
     }
 
     override fun getItemCount(): Int {
         return habits.size
+    }
+
+    fun addSelectedHabit(habit: com.example.threedays.api.Habit) {
+        selectedHabits.add(habit)
+    }
+
+    fun removeSelectedHabit(habit: com.example.threedays.api.Habit) {
+        selectedHabits.remove(habit)
+    }
+
+    fun getSelectedHabits(): List<com.example.threedays.api.Habit> {
+        return selectedHabits
+    }
+
+    fun onEditButtonClicked(habit: com.example.threedays.api.Habit) {
+        listener.onModifyButtonClick(habit)
     }
 }
