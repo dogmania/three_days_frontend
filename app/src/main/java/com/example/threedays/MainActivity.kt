@@ -25,7 +25,7 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
-    private lateinit var habits : MutableList<Habit>
+    lateinit var habits : MutableList<Habit>
     private lateinit var app: GlobalApplication
     lateinit var email: String
     lateinit var nickname: String
@@ -221,7 +221,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getHabits(): MutableList<com.example.threedays.api.Habit> {
+    fun getHabit(): MutableList<com.example.threedays.api.Habit> {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 habits = app.apiService.getHabits(email)

@@ -29,7 +29,7 @@ class HabitFragment : Fragment() {
 
         val mainActivity = requireActivity() as? MainActivity
         val nickname = mainActivity?.nickname!!
-        val habits = mainActivity?.getHabits()!!
+        val habits = mainActivity?.getHabit()!!
 
         habitAdapter = HabitAdapter(habits, requireContext(), nickname)
         binding.habitRecyclerView.adapter = habitAdapter
@@ -47,7 +47,7 @@ class HabitFragment : Fragment() {
 
         val mainActivity = requireActivity() as? MainActivity
         val nickname = mainActivity?.nickname!!
-        val habits = mainActivity?.getHabits()!!
+        val habits = mainActivity?.getHabit()!!
 
         habitAdapter = HabitAdapter(habits, requireContext(), nickname)
         binding.habitRecyclerView.adapter = habitAdapter
