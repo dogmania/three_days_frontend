@@ -1,7 +1,9 @@
 package com.example.threedays
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -12,14 +14,22 @@ import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.reflect.typeOf
 
 class KakaoLoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFirstPageBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFirstPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val app = applicationContext as GlobalApplication
+        sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
 
         //카카오톡 설치되어있는지 확인
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
@@ -40,7 +50,18 @@ class KakaoLoginActivity : AppCompatActivity() {
                 // 로그인 성공 부분
                 else if (token != null) {
                     Log.e(TAG, "로그인 성공 ${token.accessToken}")
-                    makeToast()
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            val response = app.apiService.getJwtToken(token.accessToken)
+                            saveAccessToken(response.tokenDto.accessToken)
+                            saveRefreshToken(response.tokenDto.refreshToken)
+                            checkStoredTokens()
+                        } catch (e: Exception) {
+                            Log.e("KaKaoLoginActivity", "Error during getJwtToken API call", e)
+                        }
+                        makeToast()
+                    }
                 }
             }
         } else {
@@ -61,7 +82,17 @@ class KakaoLoginActivity : AppCompatActivity() {
                 // 로그인 성공 부분
                 else if (token != null) {
                     Log.e(TAG, "로그인 성공 ${token.accessToken}")
-                    makeToast()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            val response = app.apiService.getJwtToken(token.accessToken)
+                            saveAccessToken(response.tokenDto.accessToken)
+                            saveRefreshToken(response.tokenDto.refreshToken)
+                            checkStoredTokens()
+                        } catch (e: Exception) {
+                            Log.e("KaKaoLoginActivity", "Error during getJwtToken API call", e)
+                        }
+                        makeToast()
+                    }
                 }
             }
         }
@@ -71,15 +102,32 @@ class KakaoLoginActivity : AppCompatActivity() {
         UserApiClient.instance.me { user, error ->
             Log.e(TAG, "닉네임 ${user?.kakaoAccount?.profile?.nickname}")
             Log.e(TAG, "이메일 ${user?.kakaoAccount?.email}")
-            Toast.makeText(
-                this,
-                "${user?.kakaoAccount?.profile?.nickname}님 환영합니다.",
-                Toast.LENGTH_SHORT
-            ).show()
+            val app = applicationContext as GlobalApplication
+
+            val email = sharedPreferences.getString("email", null)
+            val nickname = sharedPreferences.getString("nickname", null)
+
+            if (email == user?.kakaoAccount?.email && nickname != null) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+
+                finish()
+            } else {
+                val email = user?.kakaoAccount?.email!!
+                sharedPreferences.edit().putString("email", email).apply()
+
+                Toast.makeText(
+                    this,
+                    "${user?.kakaoAccount?.profile?.nickname}님 환영합니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                val intent = Intent(this, MemberInformationActivity::class.java)
+
+                startActivity(intent)
+                finish()
+            }
         }
-        val intent = Intent(this, MemberInformationActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
     private val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -116,9 +164,41 @@ class KakaoLoginActivity : AppCompatActivity() {
         }
         else if (token != null) {
             Log.e(TAG, "로그인 성공 ${token.accessToken}")
-            makeToast()
-//            val intent = Intent(this, FirstPageActivity::class.java)
-//            startActivity(intent)
+
+            val app = applicationContext as GlobalApplication
+
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val response = app.apiService.getJwtToken(token.accessToken)
+                    saveAccessToken(response.tokenDto.accessToken)
+                    saveRefreshToken(response.tokenDto.refreshToken)
+
+                    checkStoredTokens()
+                } catch (e: Exception) {
+                    Log.e("KaKaoLoginActivity", "Error during getJwtToken API call", e)
+                }
+                makeToast()
+            }
+        }
+    }
+
+    private fun saveAccessToken(accessToken: String) {
+        sharedPreferences.edit().putString("access_token", accessToken).apply()
+    }
+
+    private fun saveRefreshToken(refreshToken: String) {
+        sharedPreferences.edit().putString("refresh_token", refreshToken).apply()
+    }
+
+    private fun checkStoredTokens() {
+        val accessToken = sharedPreferences.getString("access_token", null)
+        val refreshToken = sharedPreferences.getString("refresh_token", null)
+
+        if (accessToken != null && refreshToken != null) {
+            Log.d(TAG, "Access Token: $accessToken")
+            Log.d(TAG, "Refresh Token: $refreshToken")
+        } else {
+            Log.d(TAG, "Tokens not found or saved properly.")
         }
     }
 }
