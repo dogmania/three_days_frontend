@@ -28,7 +28,7 @@
                 android:text="@string/habit_title"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:fontFamily="@font/pretendard_bold"/>
 
             <TextView
                 android:id="@+id/period"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/habit_period"
-                android:textStyle="bold"
+                android:fontFamily="@font/pretendard"
                 android:textSize="12sp"/>
 
         </LinearLayout>
@@ -46,12 +46,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_certification"
             android:layout_width="59sp"
             android:layout_height="33sp"
             android:layout_gravity="center"
-            android:background="@drawable/btn_yellow_background"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_btn_certification"
             android:text="@string/certification"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -90,7 +91,7 @@
                     android:text="0"
                     android:textColor="@color/black"
                     android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/pretendard_semi_bold" />
 
                 <TextView
                     android:id="@+id/achievement_rate"
@@ -99,7 +100,7 @@
                     android:text="@string/percent"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/pretendard_semi_bold"
                     android:layout_alignBottom="@id/achievement_rate_num"
                     android:layout_toRightOf="@id/achievement_rate_num"
                     android:layout_marginLeft="2dp"
@@ -115,7 +116,7 @@
                 android:layout_gravity="center"
                 android:text="@string/achievement_rate"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/pretendard_semi_bold"/>
         </LinearLayout>
 
         <View
@@ -136,7 +137,7 @@
                 android:layout_weight="1"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textStyle="bold"
+                android:fontFamily="@font/pretendard_semi_bold"
                 android:textSize="34sp"
                 android:gravity="center"
                 android:layout_gravity="center"/>
@@ -148,7 +149,7 @@
                 android:layout_weight="0.5"
                 android:text="@string/combo_text"
                 android:textSize="12sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/pretendard_semi_bold"
                 android:layout_gravity="center"/>
 
         </LinearLayout>
@@ -178,7 +179,7 @@
                     android:text="0"
                     android:textColor="@color/red"
                     android:textSize="30sp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/pretendard_semi_bold"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -186,7 +187,7 @@
                     android:text="/"
                     android:textColor="@color/black"
                     android:textSize="30sp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/pretendard_semi_bold"/>
 
                 <TextView
                     android:id="@+id/number_of_achievements"
@@ -195,7 +196,7 @@
                     android:text="3"
                     android:textColor="@color/black"
                     android:textSize="30sp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/pretendard_semi_bold"/>
             </LinearLayout>
 
             <TextView
@@ -206,7 +207,7 @@
                 android:layout_gravity="center"
                 android:text="@string/number_of_achievements_text"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/pretendard_semi_bold"/>
         </LinearLayout>
 
     </LinearLayout>

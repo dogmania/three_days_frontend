@@ -8,7 +8,7 @@
     <View
         android:id="@+id/horizontalLine"
         android:layout_width="0dp"
-        android:layout_height="1dp"
+        android:layout_height="1sp"
         android:background="@color/light_gray"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +28,7 @@
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@drawable/src_circle"/>
+            android:layout_height="35dp" />
 
         <TextView
             android:id="@+id/nickname"
@@ -39,6 +38,7 @@
             android:text="임시"
             android:textColor="@color/black"
             android:textSize="20sp"
+            android:fontFamily="@font/pretendard_medium"
             android:layout_gravity="center"/>
 
     </LinearLayout>
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
-            android:background="@drawable/round_frame_yellow">
+            android:background="@drawable/round_frame_yellow_10">
 
             <TextView
                 android:id="@+id/day"
@@ -79,7 +79,7 @@
                 android:textSize="15sp"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:fontFamily="@font/pretendard_bold"/>
 
         </FrameLayout>
 
@@ -150,7 +150,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="15dp"
+        android:layout_marginHorizontal="20dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="@id/habit_data_layout"
         app:layout_constraintEnd_toEndOf="@id/habit_data_layout"
@@ -163,12 +163,12 @@
             android:text="하루 10시간 자기"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="bold"/>
+            android:fontFamily="@font/pretendard_semi_bold"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/review_text"
@@ -176,10 +176,22 @@
                 android:layout_height="wrap_content"
                 android:text="10시간은 부족하다. 11시간을 자야겠다."
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:fontFamily="@font/pretendard_light"/>
 
         </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/certified_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"
+        android:text="2023.03.28"
+        android:fontFamily="@font/pretendard_medium"
+        app:layout_constraintEnd_toEndOf="@id/text_layout"
+        app:layout_constraintTop_toBottomOf="@id/text_layout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

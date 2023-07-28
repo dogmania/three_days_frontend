@@ -9,8 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#636363</color>
     <color name="light_gray">#EBEBEB</color>
+    <color name="semi_gray">#F3F3EF</color>
     <color name="yellow">#FCD400</color>
     <color name="green">#9FEBBB</color>
     <color name="beige">#FFFBE5</color>
     <color name="red">#FD5252</color>
+    <color name="search_item_color">#C1C1C1</color>
 </resources>

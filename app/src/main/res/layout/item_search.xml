@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52sp"
+    android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="52sp"
+        android:layout_height="52sp"
+        android:layout_marginStart="20dp"/>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wow_god"
+            android:textSize="16sp"
+            android:fontFamily="@font/pretendard_semi_bold"/>
+
+        <TextView
+            android:id="@+id/habitTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1시간씩 근력 운동하기"
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="14sp"
+            android:textColor="@color/search_item_color"/>
+
+    </LinearLayout>
+</LinearLayout>
