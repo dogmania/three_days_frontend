@@ -1,31 +1,35 @@
 package com.example.threedays
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract.Profile
 import android.view.View
 import com.example.threedays.databinding.ActivityMainBinding
 import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.threedays.databinding.ActivityFirstPageBinding
 import com.example.threedays.view.home.HomeFragment
-import com.example.threedays.view.sns.HabitUploadFragment
-import com.example.threedays.view.sns.MyHabitFragment
-import com.example.threedays.view.sns.ProfileFragment
-import com.example.threedays.view.sns.SnsFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.example.threedays.api.Habit
+import com.example.threedays.api.ModifyFragmentHabit
 import com.example.threedays.view.edit.EditDurationFragment
+import com.example.threedays.view.sns.*
 import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     lateinit var habits : MutableList<Habit>
+    lateinit var modifyFragmentHabit: MutableList<ModifyFragmentHabit>
     private lateinit var app: GlobalApplication
     lateinit var email: String
     lateinit var nickname: String
@@ -39,7 +43,10 @@ class MainActivity : AppCompatActivity() {
         app = applicationContext as GlobalApplication
         sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
 
-        nickname = sharedPreferences.getString("nickname", null)!!
+        val tempNickname = sharedPreferences.getString("nickname", null)
+        if (tempNickname != null) {
+            nickname = tempNickname
+        }
         email = sharedPreferences.getString("email", null)!!
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -58,6 +65,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                modifyFragmentHabit = app.apiService.getHabitEditList(email)
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error during getHabits API call: ${e.message}", e)
+            }
+        }
+
         binding.btnAdd.setOnClickListener {
             val intent = Intent(this, AddHabitFirstActivity::class.java)
             startActivity(intent)
@@ -65,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnHome.setOnClickListener {
-            setHabitFragment(nickname)
+            onResume()
         }
 
         binding.btnProfile.setOnClickListener {
@@ -79,6 +94,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.sub_frame)
+
+        if (currentFragment is HabitFragment) {
+            return
+        }
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -185,6 +206,18 @@ class MainActivity : AppCompatActivity() {
             binding.navigationLayout.visibility = View.VISIBLE
             binding.subFrame.visibility = View.VISIBLE
             binding.mainFrame.visibility = View.GONE
+        } else if (fragment is SearchFragment) {
+            binding.title.visibility = View.GONE
+            binding.btnAdd.visibility = View.GONE
+            binding.navigationLayout.visibility = View.VISIBLE
+            binding.subFrame.visibility = View.VISIBLE
+            binding.mainFrame.visibility = View.GONE
+        } else if (fragment is UserFragment) {
+            binding.title.visibility = View.GONE
+            binding.btnAdd.visibility = View.GONE
+            binding.navigationLayout.visibility = View.VISIBLE
+            binding.subFrame.visibility = View.VISIBLE
+            binding.mainFrame.visibility = View.GONE
         }
 
         supportFragmentManager.beginTransaction()
@@ -204,6 +237,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_frame, fragment, tag)
+            .addToBackStack(null)
             .commit()
     }
 
@@ -237,7 +271,23 @@ class MainActivity : AppCompatActivity() {
         habitFragment?.updateAdapter()
     }
 
+    fun updateHabitModificationAdapter() {
+        val habitModifyFragment = supportFragmentManager.findFragmentByTag("habitFragment") as? HabitModifyFragment
+        habitModifyFragment?.updateAdapter()
+    }
+
     fun closeFragment() {
         supportFragmentManager.popBackStack()
+    }
+
+    fun getHabitEditList(): MutableList<ModifyFragmentHabit> {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                modifyFragmentHabit = app.apiService.getHabitEditList(email)
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error during getHabits API call: ${e.message}", e)
+            }
+        }
+        return modifyFragmentHabit
     }
 }

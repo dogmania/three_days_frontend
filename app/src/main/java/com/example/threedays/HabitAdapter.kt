@@ -43,7 +43,7 @@ class HabitAdapter(private val habits: List<com.example.threedays.api.Habit>, pr
             val context = holder.itemView.context
             val intent = Intent(context, CertificationActivity::class.java)
             intent.putExtra("habitName", habitData.title) // 선택된 습관의 이름 전달
-            intent.putExtra("nickname", nickname)
+            intent.putExtra("id", habitData.id)
             context.startActivity(intent)
         }
     }
