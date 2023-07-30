@@ -94,6 +94,7 @@ class EditVisibleFragment : Fragment() {
                     mainActivity.habits.clear()
                     mainActivity.habits.addAll(updatedHabits)
                     mainActivity.updateHabitAdapter()
+                    mainActivity.updateHabitModificationAdapter()
                 } catch (e: Exception) {
 
                 }
