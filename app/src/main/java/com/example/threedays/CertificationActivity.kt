@@ -1,17 +1,43 @@
 package com.example.threedays
 
+import android.Manifest
 import android.app.Activity
+import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.example.threedays.api.CertifyData
 import com.example.threedays.databinding.ActivityCertificationBinding
-import java.util.Calendar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.util.*
 
 class CertificationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCertificationBinding
@@ -19,8 +45,7 @@ class CertificationActivity : AppCompatActivity() {
     private var selectedImages = mutableListOf<Uri>()
     private var habitReview: String? = null
     private var grade: Int = 0
-    private lateinit var name: String
-    private lateinit var habit: String
+    private val default = -1L
 
     companion object {
         private const val GALLERY_REQUEST_CODE = 123 //다른 요청들과 구분하기 위해 갤러리 오픈에 대해 요청 코드값 부여
@@ -32,12 +57,12 @@ class CertificationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val habitName = intent.getStringExtra("habitName")!!
-        val nickname = intent.getStringExtra("nickname")!!
-        name = nickname
-        habit = habitName
+        val id = intent.getLongExtra("id", default)
+        val app = applicationContext as GlobalApplication
+        val imagesParts: MutableList<MultipartBody.Part> = mutableListOf()
         binding.habitName.text = habitName
 
-        binding.currentMonth.text = calendar.get(Calendar.MONTH + 1).toString() + resources.getString(R.string.month)
+        binding.currentMonth.text = (calendar.get(Calendar.MONTH) + 1).toString() + resources.getString(R.string.month)
         binding.currentDay.text = calendar.get(Calendar.DATE).toString() + resources.getString(R.string.day)
 
         binding.btnPlanArrangement.setOnClickListener {
@@ -45,6 +70,8 @@ class CertificationActivity : AppCompatActivity() {
         }
 
         binding.btnAddImage.setOnClickListener {
+            verifyStoragePermissions(this)
+
             openGallery()
         }
 
@@ -54,7 +81,6 @@ class CertificationActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("nickname", nickname)
             startActivity(intent)
         }
 
@@ -62,23 +88,37 @@ class CertificationActivity : AppCompatActivity() {
         binding.reviewLayout.visibility = View.GONE
 
         binding.btnComplete.setOnClickListener {
-            if (selectedImages.isEmpty()) {
-                val defaultImageUri = Uri.parse("android.resource://com.example.threedays/" + R.drawable.default_image)
-                selectedImages.add(defaultImageUri)
+            if (habitReview == null) {
+                habitReview = ""
             }
-            completeCertification(selectedImages, habitReview, grade)
+            val data = CertifyData(grade, habitReview!!)
+
+            for (uri in selectedImages) {
+                val compressedImageFile = compressImageAndRotateIfNeeded(this@CertificationActivity, uri)
+                compressedImageFile?.let {
+                    val requestFile = it.asRequestBody("image/*".toMediaTypeOrNull())
+                    val imagePart = MultipartBody.Part.createFormData("images", it.name, requestFile)
+                    imagesParts.add(imagePart)
+                }
+            }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                Log.d("imagesParts", "$imagesParts")
+                try {
+                    app.apiService.certifyHabit(
+                        id,
+                        data.level.toString().toTextPlainRequestBody(),
+                        data.review.toTextPlainRequestBody(),
+                        imagesParts
+                    )
+                } catch (e: Exception) {
+                    Log.e("CertificationActivity", "Error during certifyHabit API call", e)
+                }
+            }
+
             val intent = Intent(this, HabitCertificationCompleteActivity::class.java)
-            intent.putExtra("nickname", nickname)
             startActivity(intent)
         }
-    }
-
-    private fun completeCertification(selectedImages: MutableList<Uri>, habitReview: String?, grade: Int) {
-        val user = userManager.getUser(name)!!
-        val habit = user.habits.find {it.habitName == habit}!!
-        val certification = HabitCertification(selectedImages, habitReview, grade)
-
-        habit.certification?.add(certification)
     }
 
     private fun addEditText() {
@@ -90,7 +130,7 @@ class CertificationActivity : AppCompatActivity() {
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.WRAP_CONTENT
         ).apply {
-            width = 200.dpToPx()
+            width = 350.dpToPx()
             height = 100.dpToPx()
             leftMargin = 16.dpToPx()
             topMargin = 16.dpToPx()
@@ -161,9 +201,6 @@ class CertificationActivity : AppCompatActivity() {
                 val imageUri = data.data
                 selectedImages.add(imageUri!!)
             }
-        } else {
-            val defaultImageUri = Uri.parse("android.resource://com.example.threedays/" + R.drawable.default_image)
-            selectedImages.add(defaultImageUri)
         }
     }
 
@@ -221,11 +258,104 @@ class CertificationActivity : AppCompatActivity() {
         }//클릭된 별 이후에 있는 별들을 비우는 코드
 
         for (i in 0 until binding.reviewLayout.childCount) {
-            count = 0
             if (starView.tag == "filled") {
                 count++
             }
             grade = count
         }
+    }
+
+
+    fun String.toTextPlainRequestBody(): RequestBody {
+        return this.toRequestBody("text/plain".toMediaTypeOrNull())
+    }
+
+    private val REQUEST_EXTERNAL_STORAGE = 1
+    private val PERMISSIONS_STORAGE = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
+
+    fun verifyStoragePermissions(activity: Activity) {
+        val permission = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                activity,
+                PERMISSIONS_STORAGE,
+                REQUEST_EXTERNAL_STORAGE
+            )
+        }
+    }
+
+    fun getRotatedBitmap(context: Context, uri: Uri): Bitmap? {
+        return try {
+            val source = ImageDecoder.createSource(context.contentResolver, uri)
+            ImageDecoder.decodeBitmap(source) { decoder, _, _ ->
+                decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    fun saveBitmapToFile(context: Context, bitmap: Bitmap?, fileName: String?): File? {
+        val directory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        if (directory != null) {
+            val file = File(directory, fileName)
+            return try {
+                FileOutputStream(file).use { out ->
+                    bitmap?.compress(Bitmap.CompressFormat.JPEG, 90, out)
+                }
+                file
+            } catch (e: IOException) {
+                e.printStackTrace()
+                null
+            }
+        }
+        return null
+    }
+
+    private fun compressImageAndRotateIfNeeded(context: Context, uri: Uri): File? {
+        try {
+            val rotatedBitmap = getRotatedBitmap(context, uri)
+            val randomRotatedFileName = "${UUID.randomUUID()}.jpg"
+            val rotatedImagePath = saveBitmapToFile(context, rotatedBitmap, randomRotatedFileName)
+            rotatedBitmap?.recycle() // Recycle the rotated bitmap as it is no longer needed.
+
+            if (rotatedImagePath != null) {
+                val options = BitmapFactory.Options()
+                options.inJustDecodeBounds = true
+                BitmapFactory.decodeFile(rotatedImagePath.path, options)
+
+                val maxWidth = 800 // 압축할 이미지의 최대 폭 설정
+                val maxHeight = 800 // 압축할 이미지의 최대 높이 설정
+                var scale = 1
+                while (options.outWidth / scale / 2 >= maxWidth && options.outHeight / scale / 2 >= maxHeight) {
+                    scale *= 2
+                }
+
+                val bitmapOptions = BitmapFactory.Options()
+                bitmapOptions.inSampleSize = scale
+                val bitmap = BitmapFactory.decodeFile(rotatedImagePath.path, bitmapOptions)
+
+                // Generate a random filename using UUID
+                val randomFileName = "${UUID.randomUUID()}.jpg"
+                val compressedImageFile = File(context.cacheDir, randomFileName)
+
+                val fileOutputStream = FileOutputStream(compressedImageFile)
+                bitmap?.compress(Bitmap.CompressFormat.JPEG, 50, fileOutputStream) // 이미지 압축 품질 설정 (0~100)
+                fileOutputStream.flush()
+                fileOutputStream.close()
+
+                bitmap?.recycle() // Recycle the bitmap as it is no longer needed.
+
+                return compressedImageFile
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return null
     }
 }
