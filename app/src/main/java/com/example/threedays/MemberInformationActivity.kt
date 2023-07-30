@@ -18,9 +18,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-val userManager = UserManager.getInstance()
-
-
 class MemberInformationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemberInformationBinding
     private lateinit var keywordEditTextContainer: LinearLayout
