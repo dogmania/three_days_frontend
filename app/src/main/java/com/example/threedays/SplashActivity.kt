@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Base64
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import com.example.threedays.api.ApiService
 import com.example.threedays.api.TokenRequest
 import kotlinx.coroutines.CoroutineScope
@@ -18,6 +19,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import android.Manifest
+import android.app.Activity
+import androidx.core.content.ContextCompat
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -46,9 +50,7 @@ class SplashActivity : AppCompatActivity() {
 
                         saveAccessToken(tokenResponse.accessToken)
                         saveRefreshToken(tokenResponse.refreshToken)
-
-                        getUserData(tokenResponse.accessToken)
-
+                        
                     } catch (e: Exception) {
                         Log.e("SplashActivity", "Error during checkJwtToken API call: ${e.message}", e)
                     }
@@ -81,18 +83,4 @@ class SplashActivity : AppCompatActivity() {
         sharedPreferences.edit().putString("refresh_token", refreshToken).apply()
     }
 
-    private fun getUserData(accessToken: String) {
-        val app = applicationContext as GlobalApplication
-
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val response = app.apiService.getUserData(accessToken)
-//
-//                app.email = response.email
-//                app.nickname = response.nickname
-//            } catch (e: Exception) {
-//                Log.e("SplashActivity", "Error during getUserData API call: ${e.message}", e)
-//            }
-//        }
-    }
 }
