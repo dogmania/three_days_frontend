@@ -54,6 +54,8 @@ class KakaoLoginActivity : AppCompatActivity() {
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
                             val response = app.apiService.getJwtToken(token.accessToken)
+                            Log.d("userId", response.userId.toString())
+                            sharedPreferences.edit().putLong("id", response.userId)
                             saveAccessToken(response.tokenDto.accessToken)
                             saveRefreshToken(response.tokenDto.refreshToken)
                             checkStoredTokens()
@@ -85,6 +87,8 @@ class KakaoLoginActivity : AppCompatActivity() {
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
                             val response = app.apiService.getJwtToken(token.accessToken)
+                            Log.d("userId", response.userId.toString())
+                            sharedPreferences.edit().putLong("id", response.userId)
                             saveAccessToken(response.tokenDto.accessToken)
                             saveRefreshToken(response.tokenDto.refreshToken)
                             checkStoredTokens()
@@ -170,6 +174,8 @@ class KakaoLoginActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val response = app.apiService.getJwtToken(token.accessToken)
+                    Log.d("userId", response.userId.toString())
+                    sharedPreferences.edit().putLong("id", response.userId)
                     saveAccessToken(response.tokenDto.accessToken)
                     saveRefreshToken(response.tokenDto.refreshToken)
 
