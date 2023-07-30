@@ -13,17 +13,13 @@ class HabitCertificationCompleteActivity : AppCompatActivity() {
         binding = ActivityHabitCertificationCompleteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val nickname = intent.getStringExtra("nickname")!!
-
         binding.btnComplete.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("nickname", nickname)
             startActivity(intent)
         }
 
         binding.btnClose.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("nickname", nickname)
             startActivity(intent)
         }
     }

@@ -2,14 +2,16 @@ package com.example.threedays
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.threedays.api.ModifyFragmentHabit
 import com.example.threedays.databinding.ItemHabitModificationBinding
 
-class HabitModificationAdapter(private val habits: MutableList<com.example.threedays.api.Habit>, private val listener: HabitUpdateListener)
+class HabitModificationAdapter(private val habits: MutableList<ModifyFragmentHabit>, private val listener: HabitUpdateListener)
     : RecyclerView.Adapter<HabitModificationAdapter.MyViewHolder> () {
 
-    private val selectedHabits = mutableListOf<com.example.threedays.api.Habit>()
+    private val selectedHabits = mutableListOf<ModifyFragmentHabit>()
 
     inner class MyViewHolder(binding : ItemHabitModificationBinding) : RecyclerView.ViewHolder(binding.root) {
         val habitName = binding.habitName
@@ -69,16 +71,12 @@ class HabitModificationAdapter(private val habits: MutableList<com.example.three
             holder.btnPublic.setBackgroundResource(R.drawable.ic_btn_public)
         }
 
-        holder.btnPublic.setOnCheckedChangeListener { buttonView, isChecked ->
-            habits[position] = habitData.copy(visible = isChecked)
-
-            if (isChecked) {
-                holder.itemLayout.setBackgroundResource(R.drawable.round_frame_white)
-                holder.btnPublic.setBackgroundResource(R.drawable.ic_btn_public)
-            } else {
-                holder.itemLayout.setBackgroundResource(R.drawable.round_frame_yellow)
-                holder.btnPublic.setBackgroundResource(R.drawable.ic_btn_private)
-            }
+        if (!habitData.stopDate.isNullOrEmpty()) {
+            holder.itemLayout.setBackgroundResource(R.drawable.round_frame_semi_gray)
+            holder.btnPublic.visibility = View.GONE
+            holder.btnModify.visibility = View.GONE
+            holder.checkBox.isChecked = false
+            holder.checkBox.setBackgroundResource(R.drawable.ic_checkbox_unchecked)
         }
 
         holder.btnModify.setOnClickListener {
@@ -90,19 +88,19 @@ class HabitModificationAdapter(private val habits: MutableList<com.example.three
         return habits.size
     }
 
-    fun addSelectedHabit(habit: com.example.threedays.api.Habit) {
+    fun addSelectedHabit(habit: ModifyFragmentHabit) {
         selectedHabits.add(habit)
     }
 
-    fun removeSelectedHabit(habit: com.example.threedays.api.Habit) {
+    fun removeSelectedHabit(habit: ModifyFragmentHabit) {
         selectedHabits.remove(habit)
     }
 
-    fun getSelectedHabits(): List<com.example.threedays.api.Habit> {
+    fun getSelectedHabits(): List<ModifyFragmentHabit> {
         return selectedHabits
     }
 
-    fun onEditButtonClicked(habit: com.example.threedays.api.Habit) {
+    fun onEditButtonClicked(habit: ModifyFragmentHabit) {
         listener.onModifyButtonClick(habit)
     }
 }
