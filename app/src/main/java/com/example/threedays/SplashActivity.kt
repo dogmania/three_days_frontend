@@ -50,7 +50,7 @@ class SplashActivity : AppCompatActivity() {
 
                         saveAccessToken(tokenResponse.accessToken)
                         saveRefreshToken(tokenResponse.refreshToken)
-                        
+
                     } catch (e: Exception) {
                         Log.e("SplashActivity", "Error during checkJwtToken API call: ${e.message}", e)
                     }
