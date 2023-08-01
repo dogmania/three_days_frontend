@@ -31,7 +31,7 @@
             android:layout_marginStart="20dp"
             android:layout_gravity="center"
             android:text="습관 이름"
-            android:fontFamily="@font/pretendard"
+            android:fontFamily="@font/pretendard_regular"
             android:textSize="25sp"
             android:textColor="@color/black"/>
 
@@ -42,7 +42,7 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:background="@color/gray"
+        android:background="@color/light_gray"
         app:layout_constraintTop_toBottomOf="@id/top_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

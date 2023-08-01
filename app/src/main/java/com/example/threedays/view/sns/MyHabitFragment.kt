@@ -1,20 +1,28 @@
 package com.example.threedays.view.sns
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.threedays.GlobalApplication
 import com.example.threedays.HabitCertification
+import com.example.threedays.MainActivity
+import com.example.threedays.api.Certification
 import com.example.threedays.databinding.FragmentMyHabitBinding
-import com.example.threedays.userManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MyHabitFragment : Fragment() {
     private lateinit var binding: FragmentMyHabitBinding
     private lateinit var nickname : String
     private lateinit var habitName: String
-    private lateinit var certification: List<HabitCertification>
+    private lateinit var createdDate: String
+    private lateinit var certification: List<Certification>
     private lateinit var adapter: MyHabitAdapter
 
     override fun onCreateView(
@@ -29,24 +37,36 @@ class MyHabitFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        nickname = requireActivity().intent.getStringExtra("nickname") ?: ""
-//        habitName = requireActivity().intent.getStringExtra("habitName") ?: ""
-        val nickname1 = arguments?.getString("nickname")
-        val habitName1 = arguments?.getString("habitName")
-        if (nickname1 != null && habitName1 != null) {
-            val user = userManager.getUser(nickname1)!!
-            val habit = user.habits.find {it.habitName == habitName1}!!
-            val certification1 = habit.certification
+        nickname = arguments?.getString("nickname")!!
+        habitName = arguments?.getString("habitName")!!
+        val app = activity?.application as GlobalApplication
+        val mainActivity = requireActivity() as MainActivity
 
-            nickname = nickname1
-            habitName = habitName1
-            certification = certification1
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = app.apiService.getMyProfileFeed(mainActivity.email)
+
+                synchronized(this@MyHabitFragment) {
+                    val habits = response.habitList
+                    val habit = habits.find { it.title == habitName }!!
+                    certification = habit.certifyDtos
+                    createdDate = habit.createdHabit
+                }
+
+                withContext(Dispatchers.Main) {
+                    binding.habitName.text = habitName
+                    adapter = MyHabitAdapter(certification, nickname, habitName, requireContext(), createdDate, response.kakaoImageUrl)
+                    binding.recyclerView.adapter = adapter
+                    binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                }
+
+            } catch (e: Exception) {
+                Log.e("MyHabitFragment", "Error during getMyProfileFeed API call", e)
+            }
         }
 
-        binding.habitName.text = habitName
-
-        adapter = MyHabitAdapter(certification, nickname, habitName)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.btnBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 }
