@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="20dp"
             android:text="@string/disclosure"
-            android:textStyle="bold"
+            android:fontFamily="@font/pretendard_bold"
             android:textColor="@color/black"
             android:textSize="23sp"/>
 
@@ -74,9 +74,10 @@
             android:id="@+id/disclosure_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/disclosure_hint"
+            android:text="피드에 업로드를 하면 인증이 완료됩니다.\n피드에 업로드 된 내용을 다른 사람들과\n공유하시겠습니까?"
             android:textColor="@color/black"
-            android:textSize="13sp"/>
+            android:textSize="15sp"
+            android:fontFamily="@font/pretendard_medium"/>
 
     </LinearLayout>
     
@@ -104,7 +105,8 @@
             android:background="@drawable/btn_white_background"
             android:textOn="@string/yes"
             android:textOff="@string/yes"
-            android:textSize="23sp"/>
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="25sp"/>
 
         <Space
             android:layout_width="0dp"
@@ -119,7 +121,8 @@
             android:background="@drawable/btn_white_background"
             android:textOn="@string/no"
             android:textOff="@string/no"
-            android:textSize="23sp"/>
+            android:fontFamily="@font/pretendard_semi_bold"
+            android:textSize="25sp"/>
 
         <Space
             android:layout_width="0dp"

@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/set_period_text_suggestion"
                     android:textSize="13sp"
-                    android:fontFamily="@font/pretendard"
+                    android:fontFamily="@font/pretendard_medium"
                     android:textColor="@color/black"/>
             </LinearLayout>
 

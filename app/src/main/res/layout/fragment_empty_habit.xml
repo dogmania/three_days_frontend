@@ -23,7 +23,7 @@
             android:textSize="18sp"
             android:text=""
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:fontFamily="@font/pretendard_bold"/>
 
         <TextView
             android:id="@+id/habit_formation"
@@ -32,7 +32,7 @@
             android:textSize="18sp"
             android:text="@string/habit_formation"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:fontFamily="@font/pretendard_bold"/>
 
         <TextView
             android:id="@+id/habit_formation_explanation"
@@ -41,7 +41,7 @@
             android:textSize="18sp"
             android:text="@string/habit_formation_explanation"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:fontFamily="@font/pretendard_bold"/>
 
     </LinearLayout>
 

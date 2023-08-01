@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:orientation="vertical"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -30,7 +30,7 @@
                 android:text="@string/welcome"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                android:textStyle=""/>
+                android:fontFamily="@font/pretendard_semi_bold"/>
 
             <TextView
                 android:id="@+id/introduce_text"
@@ -38,7 +38,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/introduce_yourself"
                 android:textColor="@color/black"
-                android:textSize="25sp"/>
+                android:textSize="25sp"
+                android:fontFamily="@font/pretendard_semi_bold"/>
 
         </LinearLayout>
 
@@ -61,18 +62,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/nickname"
                     android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/pretendard_bold"
                     android:textColor="@color/black"/>
-
-                <TextView
-                    android:id="@+id/number_of_characters_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="(0/20 자)"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    android:gravity="end"/>
 
             </LinearLayout>
 
@@ -81,7 +72,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/nickname_hint"/>
+                android:textSize="13sp"
+                android:text="@string/nickname_hint"
+                android:fontFamily="@font/pretendard"/>
 
             <EditText
                 android:id="@+id/nickname_edittext"
@@ -90,7 +83,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/nickname_edittext"
                 android:hint="@string/nickname_hint_edt"
-                android:inputType="text" />
+                android:inputType="text"
+                android:fontFamily="@font/pretendard"/>
 
         </LinearLayout>
 
@@ -111,18 +105,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/keyword_text"
                     android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/pretendard_bold"
                     android:textColor="@color/black"/>
-
-                <TextView
-                    android:id="@+id/number_of_characters_keyword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="(0/20 자)"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    android:gravity="end"/>
 
             </LinearLayout>
 
@@ -131,7 +115,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/nickname_hint"/>
+                android:text="@string/nickname_hint"
+                android:fontFamily="@font/pretendard"/>
 
             <LinearLayout
                 android:id="@+id/keyword_edittext_container"
@@ -146,7 +131,8 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/nickname_edittext"
                     android:hint="@string/keyword_hint_edt"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:fontFamily="@font/pretendard"/>
             </LinearLayout>
 
             <Button
@@ -154,7 +140,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add"
-                android:background="@android:color/transparent"/>
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/pretendard"/>
 
         </LinearLayout>
 
@@ -165,11 +152,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/round_frame_yellow"
+        android:background="@drawable/round_frame_yellow_10"
         android:text="@string/complete"
         android:textSize="20sp"
-        android:textColor="@color/gray"
-        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:fontFamily="@font/pretendard_bold"
         app:layout_constraintStart_toStartOf="@id/member_information_layout"
         app:layout_constraintEnd_toEndOf="@id/member_information_layout"
         app:layout_constraintBottom_toBottomOf="parent"/>

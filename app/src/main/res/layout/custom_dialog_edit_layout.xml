@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout
+    android:id="@+id/editDialog"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="322sp"
+    android:layout_height="196sp"
+    android:orientation="vertical"
+    android:background="@drawable/round_frame_white">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30sp"
+        android:text="습관을 그만두더라도\nSNS 피드에는 기록이 남게 됩니다.\n그만두시겠습니까?"
+        android:fontFamily="@font/pretendard_semi_bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="70sp"
+        android:layout_marginTop="30sp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/dialogButtonConfirm"
+            android:layout_width="67sp"
+            android:layout_height="40sp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_btn_yes"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/dialogButtonCancel"
+            android:layout_width="67sp"
+            android:layout_height="40sp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_btn_no"/>
+    </LinearLayout>
+</LinearLayout>

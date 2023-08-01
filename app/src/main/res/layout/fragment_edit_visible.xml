@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="20dp"
             android:text="@string/disclosure"
-            android:textStyle="bold"
+            android:fontFamily="@font/pretendard_bold"
             android:textColor="@color/black"
             android:textSize="23sp"/>
 
@@ -76,7 +76,8 @@
             android:layout_height="wrap_content"
             android:text="@string/disclosure_hint"
             android:textColor="@color/black"
-            android:textSize="13sp"/>
+            android:textSize="13sp"
+            android:fontFamily="@font/pretendard"/>
 
     </LinearLayout>
 
@@ -104,6 +105,7 @@
             android:background="@drawable/btn_white_background"
             android:textOn="@string/yes"
             android:textOff="@string/yes"
+            android:fontFamily="@font/pretendard_semi_bold"
             android:textSize="23sp"/>
 
         <Space
@@ -117,6 +119,7 @@
             android:layout_height="54dp"
             android:layout_weight="0.3"
             android:background="@drawable/btn_white_background"
+            android:fontFamily="@font/pretendard_semi_bold"
             android:textOn="@string/no"
             android:textOff="@string/no"
             android:textSize="23sp"/>

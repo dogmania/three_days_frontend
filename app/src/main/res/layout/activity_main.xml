@@ -59,24 +59,24 @@
 
         <ImageButton
             android:id="@+id/btn_thumbs_up"
-            android:layout_width="25dp"
-            android:layout_height="23dp"
+            android:layout_width="25sp"
+            android:layout_height="45sp"
             android:layout_weight="1"
             android:src="@drawable/thumbs_up_icon"
             android:background="@android:color/transparent"/>
 
         <ImageButton
             android:id="@+id/btn_home"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:src="@drawable/btn_home_icon"/>
 
         <ImageButton
             android:id="@+id/btn_profile"
-            android:layout_width="25dp"
-            android:layout_height="24dp"
+            android:layout_width="25sp"
+            android:layout_height="45sp"
             android:layout_weight="1"
             android:src="@drawable/btn_profile_icon"
             android:background="@android:color/transparent"/>

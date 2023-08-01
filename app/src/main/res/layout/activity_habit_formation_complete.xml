@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:text="@string/habit_formation_complete1"
             android:textSize="30sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/pretendard_bold"
             android:textColor="@color/black"
             android:layout_gravity="center"/>
 
@@ -74,19 +74,19 @@
             android:layout_height="wrap_content"
             android:text="@string/habit_formation_complete2"
             android:textSize="30sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/pretendard_bold"
             android:textColor="@color/black"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_complete"
-        android:layout_width="237dp"
-        android:layout_height="40dp"
+        android:layout_width="264dp"
+        android:layout_height="59sp"
         android:layout_marginTop="80dp"
         android:text="@string/check"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="27sp"
+        android:fontFamily="@font/pretendard_semi_bold"
+        android:textSize="25sp"
         android:background="@drawable/btn_green_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -44,7 +44,7 @@
         android:layout_width="300dp"
         android:layout_height="23.15dp"
         android:layout_marginTop="60dp"
-        android:src="@drawable/edit_first_step_graph"
+        android:src="@drawable/first_step_graph"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_layout"/>

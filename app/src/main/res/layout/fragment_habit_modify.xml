@@ -30,22 +30,12 @@
     <LinearLayout
         android:id="@+id/btn_layout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="100sp"
+        android:layout_height="36sp"
         android:layout_marginBottom="70dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
-
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="79dp"
-            android:layout_height="33dp"
-            android:background="@drawable/btn_yellow_background"
-            android:text="@string/delete"
-            android:textColor="@color/white"
-            android:textSize="18sp"/>
 
         <Space
             android:layout_width="0dp"
@@ -53,13 +43,34 @@
             android:layout_weight="0.5"/>
 
         <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="79sp"
+            android:layout_height="33sp"
+            android:background="@drawable/round_frame_yellow_10"
+            android:text="@string/delete"
+            android:textColor="@color/white"
+            android:fontFamily="@font/pretendard_bold"
+            android:textSize="18sp"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"/>
+
+        <Button
             android:id="@+id/btn_stop"
-            android:layout_width="79dp"
-            android:layout_height="33dp"
-            android:background="@drawable/btn_yellow_background"
+            android:layout_width="79sp"
+            android:layout_height="33sp"
+            android:background="@drawable/round_frame_yellow_10"
             android:text="@string/stop"
+            android:fontFamily="@font/pretendard_bold"
             android:textColor="@color/white"
             android:textSize="18sp"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
 
     </LinearLayout>
 
