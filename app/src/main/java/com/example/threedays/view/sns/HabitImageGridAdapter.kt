@@ -3,14 +3,17 @@ package com.example.threedays.view.sns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.threedays.HabitCertification
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.example.threedays.api.Certification
 import com.example.threedays.databinding.ItemHabitImageBinding
 
-class HabitImageGridAdapter(private val certification: List<HabitCertification>): RecyclerView.Adapter<HabitImageGridAdapter.GridViewHolder>() {
+class HabitImageGridAdapter(private val certification: List<Certification>): RecyclerView.Adapter<HabitImageGridAdapter.GridViewHolder>() {
     private var onItemClickListener: OnItemClickListener? = null
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int, certification: List<HabitCertification>)
+        fun onItemClick(position: Int, certification: List<Certification>)
     }
 
     inner class GridViewHolder(binding: ItemHabitImageBinding): RecyclerView.ViewHolder(binding.root) {
@@ -27,9 +30,12 @@ class HabitImageGridAdapter(private val certification: List<HabitCertification>)
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
         val certificationData = certification[position]
-        val firstUri = certificationData.image[0]
+        val firstUrl = certificationData.imagUrls[0]
 
-        holder.habitImage.setImageURI(firstUri)
+        Glide.with(holder.itemView.context)
+            .load(firstUrl)
+            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)) // 디스크 캐시 사용 설정
+            .into(holder.habitImage)
 
         holder.root.setOnClickListener {
             onItemClickListener?.onItemClick(holder.adapterPosition, certification)
