@@ -1,29 +1,34 @@
 package com.example.threedays.view.sns
 
-import android.net.Uri
-import android.opengl.Visibility
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.threedays.Habit
-import com.example.threedays.HabitCertification
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import com.example.threedays.R
-import com.example.threedays.User
+import com.example.threedays.api.UserCertifiedHabit
 import com.example.threedays.databinding.ItemHabitUploadBinding
 import com.example.threedays.databinding.ItemImageBinding
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
-class PostAdapter(private val following: List<User>): RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
+class PostAdapter(private val habitCertification: List<UserCertifiedHabit>, val context: Context)
+    : RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
 
     inner class PostViewHolder(binding: ItemHabitUploadBinding) : RecyclerView.ViewHolder(binding.root) {
-        val profileImage = binding.profileImage
         val nickname = binding.nickname
-        val viewPager = binding.viewPager
-        val day = binding.day
-        val reviewLayout = binding.reviewLayout
         val habitName = binding.habitName
         val reviewText = binding.reviewText
+        val reviewLayout = binding.reviewLayout
+        val viewPager = binding.viewPager
+        val profileImage = binding.profileImage
+        val day = binding.day
+        val certifiedDate = binding.certifiedDate
 
         val root = binding.root
     }
@@ -35,31 +40,58 @@ class PostAdapter(private val following: List<User>): RecyclerView.Adapter<PostA
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-//        if (habitCertification != null) {
-//            val habitCertificationData = habitCertification[position]
-//
-//            val imageAdapter = ImageAdapter(habitCertificationData.image!!)
-//            holder.viewPager.adapter = imageAdapter
-//            holder.reviewText.text = habitCertificationData.habitReview
-//            holder.reviewLayout.visibility = View.VISIBLE
-//
-//            if (habitCertificationData.grade != 0) {
-//                val filledStarDrawable = R.drawable.ic_star_filled
-//                val emptyStarDrawable = R.drawable.ic_star_empty
-//
-//                for (i in 0 until habitCertificationData.grade) {
-//                    val starImageView = holder.reviewLayout.getChildAt(i) as ImageView
-//                    starImageView.setImageResource(filledStarDrawable)
-//                }
-//            }
-//        }
+        if (habitCertification != null) {
+            val habitCertificationData = habitCertification[position]
+
+            val imageAdapter = ImageAdapter(habitCertificationData.certifyImages)
+            holder.viewPager.adapter = imageAdapter
+            holder.reviewText.text = habitCertificationData.review
+
+            if (habitCertificationData.level != 0) {
+                holder.reviewLayout.visibility = View.VISIBLE
+
+                holder.reviewLayout.removeAllViews()
+
+                for (i in 1..5) {
+                    val starImageView = ImageView(holder.itemView.context)
+                    val layoutParams = LinearLayout.LayoutParams(
+                        20.dpToPx(), // 가로 크기 20dp
+                        18.dpToPx()  // 세로 크기 18dp
+                    )
+                    layoutParams.marginEnd = 2.dpToPx()
+
+                    starImageView.layoutParams = layoutParams
+
+                    // level 변수에 따라 이미지를 바꿔줌
+                    if (i <= habitCertificationData.level) {
+                        starImageView.setImageResource(R.drawable.ic_star_filled)
+                    } else {
+                        starImageView.setImageResource(R.drawable.ic_star_empty)
+                    }
+
+                    holder.reviewLayout.addView(starImageView)
+                }
+            }
+            holder.nickname.text = habitCertificationData.nickname
+            holder.habitName.text = habitCertificationData.title
+            holder.reviewText.text = habitCertificationData.review
+            val dateSubString = habitCertificationData.certifiedDate.substring(0, 10)
+            holder.certifiedDate.text = dateSubString.replace("-", ".")
+            val startDate = habitCertificationData.createdHabit.substring(0, 10)
+            val dateDifference = calculateDateDifference(startDate, dateSubString) + 1
+            holder.day.text = "D + " + dateDifference.toString()
+            Glide.with(holder.itemView.context)
+                .load(habitCertificationData.kakaoImageUrl)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .into(holder.profileImage)
+        }
     }
 
     override fun getItemCount(): Int {
-        return following.size
+        return habitCertification.size
     }
 
-    inner class ImageAdapter(private val imageUriList: List<Uri>): RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+    inner class ImageAdapter(private val imageUrlList: List<String>): RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
         inner class ImageViewHolder(binding: ItemImageBinding): RecyclerView.ViewHolder(binding.root) {
             val imageView = binding.imageView
@@ -72,13 +104,26 @@ class PostAdapter(private val following: List<User>): RecyclerView.Adapter<PostA
         }
 
         override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-            val imageUri = imageUriList[position]
+            val imageUrl = imageUrlList[position]
 
-            holder.imageView.setImageURI(imageUri)
+            Glide.with(holder.itemView.context)
+                .load(imageUrl)
+                .into(holder.imageView)
         }
 
         override fun getItemCount(): Int {
-            return imageUriList.size
+            return imageUrlList.size
         }
+    }
+
+    private fun Int.dpToPx(): Int {
+        val scale = context.resources.displayMetrics.density
+        return (this * scale + 0.5f).toInt()
+    }
+
+    fun calculateDateDifference(startDateStr: String, endDateStr: String): Long {
+        val startDate = LocalDate.parse(startDateStr)
+        val endDate = LocalDate.parse(endDateStr)
+        return ChronoUnit.DAYS.between(startDate, endDate)
     }
 }
