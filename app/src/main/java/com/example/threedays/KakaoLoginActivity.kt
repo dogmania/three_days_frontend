@@ -106,7 +106,6 @@ class KakaoLoginActivity : AppCompatActivity() {
         UserApiClient.instance.me { user, error ->
             Log.e(TAG, "닉네임 ${user?.kakaoAccount?.profile?.nickname}")
             Log.e(TAG, "이메일 ${user?.kakaoAccount?.email}")
-            val app = applicationContext as GlobalApplication
 
             val email = sharedPreferences.getString("email", null)
             val nickname = sharedPreferences.getString("nickname", null)
